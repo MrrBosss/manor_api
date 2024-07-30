@@ -51,8 +51,8 @@ INSTALLED_APPS = [
     #third-party packages
     'rest_framework',
     #internal apps
-    'apartment'
-
+    'apartment',
+    'rent_apartment',
 ]
 
 MIDDLEWARE = [

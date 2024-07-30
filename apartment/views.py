@@ -3,7 +3,7 @@ from rest_framework import generics, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Apartment, ApartmentShots, Order
-from .serializers import ApartmentSerializer, ApartmentShotsSerializers, OrderSerializer
+from .serializers import ApartmentSerializer, ApartmentShotsSerializer, OrderSerializer
 # Create your views here.
 
 
@@ -20,7 +20,7 @@ class ApartmentDetailView(generics.RetrieveAPIView):
 
 class ApartmentShotsViewSet(viewsets.ModelViewSet):
     queryset = ApartmentShots.objects.all()
-    serializer_class = ApartmentShotsSerializers
+    serializer_class = ApartmentShotsSerializer
     http_method_names = ['get']
     pagination_class = None
 
@@ -29,4 +29,4 @@ class OrderView(generics.CreateAPIView):
     queryset = Order.objects.all()
     serializer_class = OrderSerializer
     http_method_names = ['post']
-    pagination_class = None
+    

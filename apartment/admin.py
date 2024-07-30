@@ -7,7 +7,19 @@ admin.site.register(Apartment)
 
 admin.site.register(ApartmentShots)
 
-admin.site.register(Order)
+class OrderItemInline(admin.TabularInline):
+    model = OrderItem
+    extra = 0
 
-admin.site.register(OrderItem)
+
+@admin.register(Order)
+class OrderAdmin(admin.ModelAdmin):
+    list_display = ['order_date', 'id']
+    list_display_links =  ['order_date','id']
+    inlines = [OrderItemInline]
+
+    def get_total_quantity(self, obj):
+        return sum(item.quantity for item in obj.items.all())
+
+    get_total_quantity.short_description = 'Total Quantity'
 

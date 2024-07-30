@@ -29,10 +29,6 @@ class ApartmentShots(models.Model):
 
     def __str__(self):
         return f"Shot for {self.apartment.name}"
-    
-    class Meta:
-        verbose_name = "Turar joy rasmi"
-        verbose_name_plural = "Turar joy rasmlari"
 
 
 class Order(models.Model):
