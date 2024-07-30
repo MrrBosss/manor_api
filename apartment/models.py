@@ -19,6 +19,7 @@ class Apartment(models.Model):
     bathroom = models.IntegerField(default=0)
     type = models.CharField(max_length=100)
     description = models.TextField(null=True)
+    is_finish = models.BooleanField(default=False)
 
 
 
