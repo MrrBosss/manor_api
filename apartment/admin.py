@@ -16,14 +16,14 @@ class ApartmentAdmin(admin.ModelAdmin):
     list_display_links = ['name','company_logo']
     inlines = [ApartmentShotsInline]
 
-    def get_company_logo(self, obj):
+    def get_logo(self, obj):
         image = obj.image.url if obj.image else ""
         return mark_safe(
             f'<img src="{image}" width="200"/>'  # if obj.logo_light else '<div>Rasmsiz</div>'
         )
 
-    get_company_logo.short_description = 'Логотип'
-    get_company_logo.allow_tags = True
+    get_logo.short_description = 'Логотип'
+    get_logo.allow_tags = True
 
 
 class OrderItemInline(admin.TabularInline):
