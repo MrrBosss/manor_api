@@ -12,7 +12,7 @@ class ApartmentShotsInline(admin.TabularInline):
 @admin.register(Apartment)
 class ApartmentAdmin(admin.ModelAdmin):
     list_display = ['name','company_logo','company_name','id']
-    search_fields = ['name']
+    search_fields = ['company_name', 'name']
     list_display_links = ['name','company_logo']
     inlines = [ApartmentShotsInline]
 
