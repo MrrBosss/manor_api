@@ -31,6 +31,7 @@ class Apartment(models.Model):
     type = models.CharField(max_length=100)
     description = models.TextField(null=True)
     is_finish = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return str(self.name)
