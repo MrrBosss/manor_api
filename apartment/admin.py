@@ -3,9 +3,18 @@ from django.contrib import admin
 from .models import Apartment, ApartmentShots, Order, OrderItem
 # Register your models here.
 
-admin.site.register(Apartment)
 
-admin.site.register(ApartmentShots)
+class ApartmentShotsInline(admin.TabularInline):
+    model = ApartmentShots
+    extra = 0
+
+@admin.register(Apartment)
+class ApartmentAdmin(admin.ModelAdmin):
+    list_display = ['name','company_logo','company_name','id']
+    search_fields = ['name']
+    list_display_links = ['name','company_logo']
+    inlines = [ApartmentShotsInline]
+
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem

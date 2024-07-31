@@ -4,7 +4,7 @@ from django.db import models
 
 class Apartment(models.Model):
     name = models.CharField(max_length=50,null=True)
-    company_logo = models.ImageField(upload_to='logos',null=True)
+    company_logo = models.ImageField(upload_to='logos',null=True, blank=True)
     company_name = models.CharField(max_length=50,null=True)
     price = models.FloatField(default=10.000)
     price_per_m = models.FloatField(default=1.000)
@@ -21,7 +21,8 @@ class Apartment(models.Model):
     description = models.TextField(null=True)
     is_finish = models.BooleanField(default=False)
 
-
+    def __str__(self):
+        return str(self.name)
 
 class ApartmentShots(models.Model):
     apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE,null=True)

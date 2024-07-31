@@ -15,14 +15,14 @@ class RentApartmentShotsSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class OrderItemSerializer(serializers.ModelSerializer):
+class RentApartmentOrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = RentApartmentOrderItem
         fields = ['id', 'apartment']
 
 
-class OrderSerializer(serializers.ModelSerializer):
-    items = OrderItemSerializer(many=True)
+class RentApartmentOrderSerializer(serializers.ModelSerializer):
+    items = RentApartmentOrderItemSerializer(many=True)
 
     class Meta:
         model = RentApartmentOrder

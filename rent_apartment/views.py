@@ -2,7 +2,7 @@ from django.shortcuts import render
 from rest_framework import generics, viewsets
 
 from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem
-from .serializers import RentApartmentSerializer, RentApartmentShotsSerializer, OrderSerializer
+from .serializers import RentApartmentSerializer, RentApartmentShotsSerializer, RentApartmentOrderSerializer
 # Create your views here.
 
 
@@ -26,7 +26,7 @@ class RentApartmentShotsViewSet(viewsets.ModelViewSet):
 
 class RentOrderView(generics.CreateAPIView):
     queryset = RentApartmentOrder.objects.all()
-    serializer_class = OrderSerializer
+    serializer_class = RentApartmentOrderSerializer
     http_method_names = ['post']
 
 
