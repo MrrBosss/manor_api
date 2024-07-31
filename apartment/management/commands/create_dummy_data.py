@@ -62,7 +62,7 @@ class Command(BaseCommand):
 
 
     def get_apartment_shot_image(self):
-        access_key = 'AwPUx2oT7SKctL7WvoL1ACNKxsARnbuMF92OXyM1J3k'  # Replace with your Unsplash access key
+        access_key = ''  # Replace with your Unsplash access key
         url = f'https://api.unsplash.com/photos/random?query=product&orientation=landscape'
         headers = {
             'Accept-Version': 'v1',
