@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.safestring import mark_safe
 
 from .models import Apartment, ApartmentShots, Order, OrderItem
 # Register your models here.
@@ -14,6 +15,15 @@ class ApartmentAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_display_links = ['name','company_logo']
     inlines = [ApartmentShotsInline]
+
+    def get_company_logo(self, obj):
+        image = obj.image.url if obj.image else ""
+        return mark_safe(
+            f'<img src="{image}" width="200"/>'  # if obj.logo_light else '<div>Rasmsiz</div>'
+        )
+
+    get_company_logo.short_description = 'Логотип'
+    get_company_logo.allow_tags = True
 
 
 class OrderItemInline(admin.TabularInline):

@@ -13,8 +13,8 @@ fake = Faker()
 class Command(BaseCommand):
     help = 'Generate dummy data for Apartments and their related ApartmentShots'
 
-    def handle(self, *args, **kwargs):
-        for _ in range(50):
+    def handle(self, *args, **kwargs):  
+        for _ in range(10):
             image_url = self.get_apartment_shot_image()
             image_name = f"apartment_{fake.word()}.jpg"
             image_path = self.save_image_from_url(image_url, image_name)
@@ -62,7 +62,7 @@ class Command(BaseCommand):
 
 
     def get_apartment_shot_image(self):
-        access_key = 'NNpH9MjyQNMfmuBxreAQmnSjzb2cCJk9nWCGFfd7M2M'  # Replace with your Unsplash access key
+        access_key = 'AwPUx2oT7SKctL7WvoL1ACNKxsARnbuMF92OXyM1J3k'  # Replace with your Unsplash access key
         url = f'https://api.unsplash.com/photos/random?query=product&orientation=landscape'
         headers = {
             'Accept-Version': 'v1',
