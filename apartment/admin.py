@@ -1,9 +1,8 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Apartment, ApartmentShots, Order, OrderItem
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District
 # Register your models here.
-
 
 class ApartmentShotsInline(admin.TabularInline):
     model = ApartmentShots
@@ -11,9 +10,9 @@ class ApartmentShotsInline(admin.TabularInline):
 
 @admin.register(Apartment)
 class ApartmentAdmin(admin.ModelAdmin):
-    list_display = ['name','company_logo','company_name','id']
+    list_display = ['name','brand','city','district','id']
     search_fields = ['company_name', 'name']
-    list_display_links = ['name','company_logo']
+    list_display_links = ['name','brand']
     inlines = [ApartmentShotsInline]
 
     def get_logo(self, obj):
@@ -37,8 +36,26 @@ class OrderAdmin(admin.ModelAdmin):
     list_display_links =  ['order_date','id']
     inlines = [OrderItemInline]
 
-    def get_total_quantity(self, obj):
-        return sum(item.quantity for item in obj.items.all())
+    # def get_total_quantity(self, obj):
+    #     return sum(item.quantity for item in obj.items.all())
 
-    get_total_quantity.short_description = 'Total Quantity'
+    # get_total_quantity.short_description = 'Total Quantity'
+
+@admin.register(Brand)
+class BrandAdmin(admin.ModelAdmin):
+    list_display = ['name','id']
+    list_display_links = ['name']
+    search_fields = ['name']
+
+class DistrictInline(admin.TabularInline):
+    model = District
+    extra = 0
+
+@admin.register(City)
+class CityAdmin(admin.ModelAdmin):
+    list_display = ['name','id']
+    list_display_links = ['name']
+    search_fields = ['name','district']
+    inlines = [DistrictInline]
+
 

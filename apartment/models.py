@@ -13,9 +13,30 @@ def upload_to(instance, filename):
     return f'{date_str}/{filename}'
 
 
+class Brand(models.Model):
+    name = models.CharField(max_length=100, null=True)
+    brand_image = models.ImageField(upload_to='brand-images', blank=True)
+   
+    def __str__(self):
+        return self.name
+
+
+class City(models.Model):
+    name = models.CharField(max_length=50,null=True)
+    
+    def __str__(self):
+        return self.name
+
+class District(models.Model):
+    name = models.CharField(max_length=50, null=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return self.name
+    
+
 class Apartment(models.Model):
     name = models.CharField(max_length=50,null=True)
-    company_logo = models.ImageField(upload_to=upload_to, null=True)
     company_name = models.CharField(max_length=50,null=True)
     price = models.FloatField(default=10.000)
     price_per_m = models.FloatField(default=1.000)
@@ -25,13 +46,17 @@ class Apartment(models.Model):
     floor = models.IntegerField(default=0)
     year_of_delivery = models.IntegerField(default=0)
     house = models.CharField(max_length=100,null=True)
-    finishing = models.CharField(max_length=100)
-    viev_from_window = models.CharField(max_length=100)
+    finishing = models.CharField(max_length=100, null=True)
+    viev_from_window = models.CharField(max_length=100, null=True)
     bathroom = models.IntegerField(default=0)
-    type = models.CharField(max_length=100)
-    description = models.TextField(null=True)
+    type = models.CharField(max_length=100, null=True)
+    description = models.TextField(null=True, blank=True)
     is_finish = models.BooleanField(default=False)
+    is_mortgage = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
+    district = models.ForeignKey(District, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.name)
