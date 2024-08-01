@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Apartment, ApartmentShots, Order, OrderItem
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District
 
 
 class ApartmentSerializer(serializers.ModelSerializer):
@@ -12,6 +12,24 @@ class ApartmentSerializer(serializers.ModelSerializer):
 class ApartmentShotsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApartmentShots
+        fields = '__all__'
+
+
+class BrandSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Brand
+        fields ='__all__'
+
+
+class CitySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = City
+        fields = '__all__'
+
+
+class DistrictSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = District
         fields = '__all__'
 
 
@@ -39,3 +57,4 @@ class OrderSerializer(serializers.ModelSerializer):
         for item_data in items_data:
             OrderItem.objects.create(order=order, **item_data)
         return order
+    

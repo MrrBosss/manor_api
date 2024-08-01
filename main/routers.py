@@ -1,12 +1,18 @@
 from rest_framework.routers import DefaultRouter
 from django.urls import path
 
-from apartment.views import ApartmentListView, ApartmentDetailView, ApartmentShotsViewSet, OrderView
+from apartment.views import ApartmentListView, ApartmentDetailView, ApartmentShotsViewSet, OrderView, BrandViewSet,\
+                            CityViewSet, DistrictViewSet
 from rent_apartment.views import RentApartmentListView, RentApartmentDetailView, RentApartmentShotsViewSet, RentOrderView
 
 router = DefaultRouter()
 router.register('apartment-shots', ApartmentShotsViewSet, basename='apartment-shots')
+router.register('brands', BrandViewSet, basename='brands')
+router.register('cities', CityViewSet, basename='cities')
+router.register('districts', DistrictViewSet, basename='districts')
+# rent_apartments
 router.register('rent-apartment-shots', RentApartmentShotsViewSet, basename='rent-apartment-shots')
+
 urlpatterns = router.urls
 urlpatterns += [
     path('apartment-list/', ApartmentListView.as_view(), name='apartment-list'),
