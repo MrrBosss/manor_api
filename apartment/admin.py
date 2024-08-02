@@ -24,11 +24,9 @@ class ApartmentAdmin(admin.ModelAdmin):
     get_logo.short_description = 'Логотип'
     get_logo.allow_tags = True
 
-
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
-
 
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
