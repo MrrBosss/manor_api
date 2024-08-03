@@ -1,6 +1,6 @@
 import random
 from django.core.management.base import BaseCommand
-from apartment.models import Apartment, ApartmentShots, Brand, City, District
+from apartment.models import Apartment, ApartmentShots, Brand, City, District, Category
 from faker import Faker
 from django.utils import timezone
 import requests
@@ -13,10 +13,11 @@ class Command(BaseCommand):
     help = 'Generate dummy data for Apartments and their related ApartmentShots'
 
     def handle(self, *args, **kwargs):
-        # Create dummy data for Brands, Cities, and Districts
+        # Create dummy data for Brands, Cities, Districts, and Categories
         brands = [Brand.objects.create(name=fake.company()) for _ in range(5)]
         cities = [City.objects.create(name=fake.city()) for _ in range(3)]
         districts = [District.objects.create(name=fake.city()) for _ in range(10)]
+        categories = [Category.objects.create(name=fake.word()) for _ in range(5)]
 
         # Create dummy Apartments
         for _ in range(10):  # Number of dummy apartments to create
@@ -31,20 +32,21 @@ class Command(BaseCommand):
                 price_per_m=round(random.uniform(5.0, 50.0), 2),
                 apartment_sold=random.randint(0, 10),
                 total_area=round(random.uniform(50.0, 200.0), 2),
-                residential_are=round(random.uniform(30.0, 150.0), 2),
+                residential_area=round(random.uniform(30.0, 150.0), 2),
                 floor=random.randint(1, 10),
                 year_of_delivery=random.randint(2020, 2025),
                 house=fake.address(),
                 finishing=fake.word(),
-                viev_from_window=fake.word(),
+                view_from_window=fake.word(),
                 bathroom=random.randint(1, 3),
                 type=fake.word(),
                 description=fake.text(),
                 is_finish=fake.boolean(),
-                is_mortgage=fake.boolean(),
+                mortgage_available=fake.boolean(),
                 brand=random.choice(brands),
                 city=random.choice(cities),
                 district=random.choice(districts),
+                category=random.choice(categories)  # Single category for ForeignKey
             )
 
             # Create dummy ApartmentShots for each apartment
@@ -65,7 +67,7 @@ class Command(BaseCommand):
         self.stdout.write(self.style.SUCCESS('Successfully created dummy data for Apartments and ApartmentShots.'))
 
     def get_apartment_shot_image(self):
-        access_key = 'NNpH9MjyQNMfmuBxreAQmnSjzb2cCJk9nWCGFfd7M2M'  # Replace with your Unsplash access key
+        access_key = ''  # Replace with your Unsplash access key
         url = f'https://api.unsplash.com/photos/random?query=apartment&orientation=landscape'
         headers = {
             'Accept-Version': 'v1',

@@ -1,7 +1,7 @@
 from django.db import models
 import datetime
 
-from apartment.models import Brand, City, District
+from apartment.models import Brand, City, District, Category
 # Create your models here.
 
 
@@ -36,7 +36,8 @@ class RentApartment(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True)
-    
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
+
     def __str__(self):
         return str(self.name)
 

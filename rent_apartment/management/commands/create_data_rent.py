@@ -1,31 +1,40 @@
 import random
 from django.core.management.base import BaseCommand
-from django.utils import timezone
+from rent_apartment.models import RentApartment, RentApartmentShots
+from apartment.models import Brand, City, District, Category
 from faker import Faker
+from django.utils import timezone
 import requests
 from django.core.files.base import ContentFile
 from django.core.files.storage import default_storage
-from apartment.models import Brand, City, District
-from rent_apartment.models import RentApartment, RentApartmentShots
 
 fake = Faker()
 
 class Command(BaseCommand):
-    help = 'Generate dummy data for RentApartment and related RentApartmentShots'
+    help = 'Generate dummy data for RentApartments and their related RentApartmentShots'
 
     def handle(self, *args, **kwargs):
-        for _ in range(10):  # Number of dummy apartments to create
-            image_url = self.get_apartment_shot_image()
-            image_name = f"rent_apartment_{fake.word()}.jpg"
-            image_path = self.save_image_from_url(image_url, image_name)
+        # Create dummy data for Brands, Cities, Districts, and Categories
+        brands = [Brand.objects.create(name=fake.company()) for _ in range(5)]
+        cities = [City.objects.create(name=fake.city()) for _ in range(3)]
+        districts = [District.objects.create(name=fake.city()) for _ in range(10)]
+        categories = [Category.objects.create(name=fake.word()) for _ in range(5)]
 
-            # Create dummy RentApartment
+        # Create dummy RentApartments
+        for _ in range(10):  # Number of dummy rent apartments to create
+            image_url = self.get_rent_apartment_shot_image()
+            tenant_image_url = self.get_rent_apartment_shot_image()  # Use same image API for tenant image
+            image_name = f"rent_apartment_{fake.word()}.jpg"
+            tenant_image_name = f"tenant_{fake.word()}.jpg"
+            image_path = self.save_image_from_url(image_url, image_name)
+            tenant_image_path = self.save_image_from_url(tenant_image_url, tenant_image_name) if tenant_image_url else None
+
             rent_apartment = RentApartment.objects.create(
-                name=fake.company(),
+                name=fake.word(),
                 price_per_m=round(random.uniform(1.0, 50.0), 2),
-                apartment=random.randint(1, 10),
+                apartment=random.randint(1, 5),
                 tenant_name=fake.name(),
-                tenant_image=image_path,
+                tenant_image=tenant_image_path,
                 company=fake.company(),
                 total_area=round(random.uniform(50.0, 200.0), 2),
                 residential_are=round(random.uniform(30.0, 150.0), 2),
@@ -37,18 +46,18 @@ class Command(BaseCommand):
                 bathroom=random.randint(1, 3),
                 type=fake.word(),
                 description=fake.text(),
-                created_at=timezone.now(),
-                brand=self.get_random_brand(),
-                city=self.get_random_city(),
-                district=self.get_random_district(),
+                brand=random.choice(brands),
+                city=random.choice(cities),
+                district=random.choice(districts),
+                category=random.choice(categories),  # Added category
             )
-            # self.stdout.write(self.style.SUCCESS(f'Created RentApartment: {rent_apartment.name}'))
 
-            # Create dummy RentApartmentShots for each apartment
-            for shot_num in range(1, 3):  # Number of shots per apartment
-                image_url = self.get_apartment_shot_image()
+            # Create dummy RentApartmentShots for each rent apartment
+            for shot_num in range(1, 3):
+                image_url = self.get_rent_apartment_shot_image()
                 if image_url:
                     image_name = f"rent_apartment{_ + 1}_shot_{shot_num}.jpg"
+                    
                     image_path = self.save_image_from_url(image_url, image_name)
                     if image_path:
                         RentApartmentShots.objects.create(
@@ -59,11 +68,10 @@ class Command(BaseCommand):
 
             self.stdout.write(self.style.SUCCESS(f'Successfully created RentApartment {_ + 1} and its shots.'))
 
-        self.stdout.write(self.style.SUCCESS('Successfully created 10 dummy RentApartment instances with shots.'))
+        self.stdout.write(self.style.SUCCESS('Successfully created dummy data for RentApartments and RentApartmentShots.'))
 
-    
-    def get_apartment_shot_image(self):
-        access_key = 'NNpH9MjyQNMfmuBxreAQmnSjzb2cCJk9nWCGFfd7M2M'  # Replace with your Unsplash access key
+    def get_rent_apartment_shot_image(self):
+        access_key = ''  # Replace with your Unsplash access key
         url = f'https://api.unsplash.com/photos/random?query=apartment&orientation=landscape'
         headers = {
             'Accept-Version': 'v1',
@@ -82,7 +90,7 @@ class Command(BaseCommand):
         try:
             response = requests.get(url)
             if response.status_code == 200:
-                image_path = f'apartment_shots/{image_name}'
+                image_path = f'rent_apartment_shots/{image_name}'
                 default_storage.save(image_path, ContentFile(response.content))
                 return image_path
             else:
@@ -91,12 +99,3 @@ class Command(BaseCommand):
         except Exception as e:
             self.stderr.write(f'Failed to save image from URL: {str(e)}')
             return None
-
-    def get_random_brand(self):
-        return Brand.objects.order_by('?').first()
-
-    def get_random_city(self):
-        return City.objects.order_by('?').first()
-
-    def get_random_district(self):
-        return District.objects.order_by('?').first()
