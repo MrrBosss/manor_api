@@ -26,7 +26,7 @@ class OrderAdmin(admin.ModelAdmin):
     list_display_links =  ['order_date','id']
     inlines = [OrderItemInline]
 
-    def get_total_quantity(self, obj):
-        return sum(item.quantity for item in obj.items.all())
+    # def get_total_quantity(self, obj):
+    #     return sum(item.quantity for item in obj.items.all())
 
-    get_total_quantity.short_description = 'Total Quantity'
+    # get_total_quantity.short_description = 'Total Quantity'

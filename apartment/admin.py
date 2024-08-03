@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category
 # Register your models here.
 
 class ApartmentShotsInline(admin.TabularInline):
@@ -56,4 +56,9 @@ class CityAdmin(admin.ModelAdmin):
     search_fields = ['name','district']
     inlines = [DistrictInline]
 
-
+@admin.register(Category)
+class CategoryAdmin(admin.ModelAdmin):
+    list_display = ['name','id']
+    list_display_links = ['name']
+    search_fields = ['name']
+    

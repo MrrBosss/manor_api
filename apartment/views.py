@@ -2,9 +2,9 @@ from django.shortcuts import render
 from rest_framework import generics, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Apartment, ApartmentShots, Order, Brand, City, District
+from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category
 from .serializers import ApartmentSerializer, ApartmentShotsSerializer, OrderSerializer, BrandSerializer, CitySerializer,\
-                        DistrictSerializer
+                        DistrictSerializer, CategorySerializer
 from .filters import ApartmentFilter
 # Create your views here.
 
@@ -49,6 +49,12 @@ class DistrictViewSet(viewsets.ModelViewSet):
     serializer_class = DistrictSerializer
     http_method_names = ['get']
 
+
+class CategoryViewSet(viewsets.ModelViewSet):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    http_method_names = ['get']
+    pagination_class = None
 
 
 class OrderView(generics.CreateAPIView):
