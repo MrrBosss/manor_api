@@ -8,8 +8,9 @@ class ApartmentFilter(django_filters.FilterSet):
     floor = django_filters.NumberFilter(lookup_expr='exact')
     price_lte = django_filters.NumberFilter(field_name='price', lookup_expr='lte')
     price_gte = django_filters.NumberFilter(field_name='price', lookup_expr='gte')
+    mortgage_available = django_filters.BooleanFilter(field_name='mortgage_available', lookup_expr='exact')
 
     class Meta:
         model = Apartment
-        fields = ['city', 'district','brand','floor', 'price_lte', 'price_gte']
+        fields = ['city', 'district','brand','floor', 'price_lte', 'price_gte','mortgage_available']
 

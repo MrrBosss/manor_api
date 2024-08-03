@@ -52,7 +52,7 @@ class Apartment(models.Model):
     type = models.CharField(max_length=100, null=True)
     description = models.TextField(null=True, blank=True)
     is_finish = models.BooleanField(default=False)
-    is_mortgage = models.BooleanField(default=False)
+    mortgage_available = models.BooleanField(default=False)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
