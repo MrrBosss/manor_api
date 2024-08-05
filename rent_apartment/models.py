@@ -1,7 +1,7 @@
 from django.db import models
 import datetime
 
-from apartment.models import Brand, City, District, Category, Banner
+from apartment.models import Brand, City, District, Category
 # Create your models here.
 
 
