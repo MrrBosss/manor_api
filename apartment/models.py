@@ -13,12 +13,18 @@ def upload_to(instance, filename):
     return f'{date_str}/{filename}'
 
 
+class Banner(models.Model):
+    text = models.CharField(max_length=500, null=True)
+    image = models.ImageField(upload_to='banners',null=True)
+
+
 class Category(models.Model):
     name = models.CharField(max_length=50, null=True)
 
     def __str__(self):
         return str(self.name)
     
+
 class Brand(models.Model):
     name = models.CharField(max_length=100, null=True)
     brand_image = models.ImageField(upload_to='brand-images', blank=True)
@@ -32,6 +38,7 @@ class City(models.Model):
     
     def __str__(self):
         return str(self.name)
+
 
 class District(models.Model):
     name = models.CharField(max_length=50, null=True)
@@ -67,6 +74,7 @@ class Apartment(models.Model):
 
     def __str__(self):
         return str(self.name)
+
 
 class ApartmentShots(models.Model):
     apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE,null=True)

@@ -3,7 +3,7 @@ from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInl
 
 from django.utils.safestring import mark_safe
 
-from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Banner
 # Register your models here.
 
 class ApartmentShotsInline(admin.TabularInline):
@@ -63,4 +63,9 @@ class CategoryAdmin(TabbedTranslationAdmin):
     list_display = ['name_uz','id']
     list_display_links = ['name_uz']
     search_fields = ['name']
+
+@admin.register(Banner)
+class BannerAdmin(admin.ModelAdmin):
+    list_display = ['text','id']
+    list_display_links = ['text','id']
     
