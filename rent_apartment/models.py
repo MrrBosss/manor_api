@@ -13,7 +13,6 @@ def upload_to(instance, filename):
         date_str = datetime.now().strftime("%Y/%m/%d")  # Or use any default date
 
     return f'{date_str}/{filename}'
-# Create your models here.
 
 class RentApartment(models.Model):
     name = models.CharField(max_length=50,null=True)
