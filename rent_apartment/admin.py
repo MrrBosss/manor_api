@@ -1,4 +1,5 @@
 from django.contrib import admin
+from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
 
 from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem
 # Register your models here.
@@ -8,7 +9,7 @@ class RentApartmentShotsInline(admin.TabularInline):
     extra = 0
 
 @admin.register(RentApartment)
-class RentApartmentAdmin(admin.ModelAdmin):
+class RentApartmentAdmin(TabbedTranslationAdmin):
     list_display = ['name','tenant_name','brand','company','id']
     search_fields = ['name']
     list_display_links = ['name','tenant_name']

@@ -1,4 +1,6 @@
 from django.contrib import admin
+from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
+
 from django.utils.safestring import mark_safe
 
 from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category
@@ -9,7 +11,7 @@ class ApartmentShotsInline(admin.TabularInline):
     extra = 0
 
 @admin.register(Apartment)
-class ApartmentAdmin(admin.ModelAdmin):
+class ApartmentAdmin(TabbedTranslationAdmin):
     list_display = ['name','brand','city','district','id']
     search_fields = ['company_name', 'name']
     list_display_links = ['name','brand']
@@ -57,7 +59,7 @@ class CityAdmin(admin.ModelAdmin):
     inlines = [DistrictInline]
 
 @admin.register(Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(TabbedTranslationAdmin):
     list_display = ['name','id']
     list_display_links = ['name']
     search_fields = ['name']

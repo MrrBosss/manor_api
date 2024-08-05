@@ -28,7 +28,7 @@ class RentApartment(models.Model):
     year_of_delivery = models.IntegerField(default=0)
     house = models.CharField(max_length=100,null=True)
     finishing = models.CharField(max_length=100)
-    viev_from_window = models.CharField(max_length=100)
+    view_from_window = models.CharField(max_length=100)
     bathroom = models.IntegerField(default=0)
     type = models.CharField(max_length=100)
     description = models.TextField(null=True)
