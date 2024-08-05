@@ -12,9 +12,9 @@ class ApartmentShotsInline(admin.TabularInline):
 
 @admin.register(Apartment)
 class ApartmentAdmin(TabbedTranslationAdmin):
-    list_display = ['name','brand','city','district','id']
+    list_display = ['name_uz','brand','city','district','id']
     search_fields = ['company_name', 'name']
-    list_display_links = ['name','brand']
+    list_display_links = ['name_uz','brand']
     inlines = [ApartmentShotsInline]
 
     def get_logo(self, obj):
@@ -60,7 +60,7 @@ class CityAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(TabbedTranslationAdmin):
-    list_display = ['name','id']
-    list_display_links = ['name']
+    list_display = ['name_uz','id']
+    list_display_links = ['name_uz']
     search_fields = ['name']
     

@@ -10,9 +10,9 @@ class RentApartmentShotsInline(admin.TabularInline):
 
 @admin.register(RentApartment)
 class RentApartmentAdmin(TabbedTranslationAdmin):
-    list_display = ['name','tenant_name','brand','company','id']
+    list_display = ['name_uz','tenant_name','brand','company','id']
     search_fields = ['name']
-    list_display_links = ['name','tenant_name']
+    list_display_links = ['name_uz','tenant_name']
     inlines = [RentApartmentShotsInline]
 
 
