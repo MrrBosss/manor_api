@@ -103,7 +103,8 @@ class Apartment(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-
+    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
+    
     def __str__(self):
         return str(self.name)
 
