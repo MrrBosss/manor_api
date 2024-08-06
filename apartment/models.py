@@ -45,6 +45,11 @@ class Location(models.Model, GeoItem):
         return self.geomap_popup_view
     
 
+class News(models.Model):
+    image = models.ImageField(upload_to='news', null=True)
+    content = models.TextField(null=True, blank=True)
+
+
 class Banner(models.Model):
     text = models.CharField(max_length=500, null=True)
     image = models.ImageField(upload_to='banners',null=True)

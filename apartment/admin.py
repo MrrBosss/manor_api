@@ -3,7 +3,7 @@ from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInl
 from django_admin_geomap import ModelAdmin
 from django.utils.safestring import mark_safe
 
-from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Banner, Location
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Banner, Location, News
 # Register your models here.
 
 class Admin(ModelAdmin):
@@ -16,9 +16,7 @@ class Admin(ModelAdmin):
     geomap_default_latitude = "64.2637"
     geomap_default_zoom = "3"
     geomap_height = "300px"
-    geomap_show_map_on_list = True
-    
-
+    # geomap_show_map_on_list = True
 
 admin.site.register(Location, ModelAdmin)
 
@@ -85,3 +83,4 @@ class BannerAdmin(admin.ModelAdmin):
     list_display = ['text','id']
     list_display_links = ['text','id']
     
+admin.site.register(News)
