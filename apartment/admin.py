@@ -1,10 +1,26 @@
 from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
-
+from django_admin_geomap import ModelAdmin
 from django.utils.safestring import mark_safe
 
-from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Banner
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Banner, Location
 # Register your models here.
+
+class Admin(ModelAdmin):
+    geomap_field_longitude = "id_lon"
+    geomap_field_latitude = "id_lat"
+    geomap_autozoom = "10"
+    geomap_item_zoom = "10"
+    geomap_new_feature_icon = "/myicon.png"
+    geomap_default_longitude = "95.1849"
+    geomap_default_latitude = "64.2637"
+    geomap_default_zoom = "3"
+    geomap_height = "300px"
+    geomap_show_map_on_list = True
+    
+
+
+admin.site.register(Location, ModelAdmin)
 
 class ApartmentShotsInline(admin.TabularInline):
     model = ApartmentShots

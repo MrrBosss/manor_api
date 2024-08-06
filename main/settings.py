@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_spectacular',
     #third-party packages
+    'django_admin_geomap',
     'rest_framework',
     #internal apps
     'apartment',

@@ -1,5 +1,7 @@
 from django.db import models
 import datetime
+from django_admin_geomap import GeoItem
+
 # Create your models here.
 
 
@@ -12,6 +14,36 @@ def upload_to(instance, filename):
 
     return f'{date_str}/{filename}'
 
+
+class Location(models.Model, GeoItem):
+    name = models.CharField(max_length=100)
+    lon = models.FloatField()  # longitude
+    lat = models.FloatField()  # latitude
+
+    @property
+    def geomap_longitude(self):
+        return '' if self.lon is None else str(self.lon)
+
+    @property
+    def geomap_latitude(self):
+        return '' if self.lat is None else str(self.lat)
+
+    @property
+    def geomap_icon(self):
+        return self.default_icon
+
+    @property
+    def geomap_popup_view(self):
+        return "<strong>{}</strong>".format(str(self))
+
+    @property
+    def geomap_popup_edit(self):
+        return self.geomap_popup_view
+
+    @property
+    def geomap_popup_common(self):
+        return self.geomap_popup_view
+    
 
 class Banner(models.Model):
     text = models.CharField(max_length=500, null=True)

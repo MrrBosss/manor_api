@@ -1,12 +1,17 @@
 from django.shortcuts import render
+from django_admin_geomap import geomap_context
 from rest_framework import generics, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category, Banner
+from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category, Banner, Location
 from .serializers import ApartmentSerializer, ApartmentShotsSerializer, OrderSerializer, BrandSerializer, CitySerializer,\
                         DistrictSerializer, CategorySerializer, BannerSerizlizer
 from .filters import ApartmentFilter
 # Create your views here.
+
+
+def home(request):
+    return render(request, 'home.html', geomap_context(Location.objects.all(), auto_zoom="10"))
 
 
 class ApartmentListView(generics.ListAPIView):
