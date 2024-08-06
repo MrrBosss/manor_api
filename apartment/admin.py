@@ -83,4 +83,8 @@ class BannerAdmin(admin.ModelAdmin):
     list_display = ['text','id']
     list_display_links = ['text','id']
     
-admin.site.register(News)
+@admin.register(News)
+class NewsAdmin(admin.ModelAdmin):
+    list_display = ['id']
+    list_display_links = ['id']
+    search_fields = ['id']

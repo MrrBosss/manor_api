@@ -2,6 +2,7 @@ from django.db import models
 import datetime
 from django_admin_geomap import GeoItem
 
+from .validators import validate_image_or_video
 # Create your models here.
 
 
@@ -46,7 +47,7 @@ class Location(models.Model, GeoItem):
     
 
 class News(models.Model):
-    image = models.ImageField(upload_to='news', null=True)
+    media = models.FileField(upload_to='news', null=True,blank=True, validators=[validate_image_or_video])
     content = models.TextField(null=True, blank=True)
 
 
