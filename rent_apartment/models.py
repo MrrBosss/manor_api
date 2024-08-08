@@ -14,6 +14,7 @@ def upload_to(instance, filename):
 
     return f'{date_str}/{filename}'
 
+
 class RentApartment(models.Model):
     name = models.CharField(max_length=50,null=True)
     price_per_m = models.FloatField(default=1.000)
