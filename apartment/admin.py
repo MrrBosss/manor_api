@@ -18,18 +18,20 @@ class Admin(ModelAdmin):
     geomap_height = "300px"
     # geomap_show_map_on_list = True
 
-admin.site.register(Location, ModelAdmin)
-
 class ApartmentShotsInline(admin.TabularInline):
     model = ApartmentShots
     extra = 0
 
+class ApartmentLocationInline(admin.TabularInline):
+    model = Location
+    extra = 1
+    
 @admin.register(Apartment)
 class ApartmentAdmin(TabbedTranslationAdmin):
     list_display = ['name_uz','brand','city','district','id']
     search_fields = ['company_name', 'name']
     list_display_links = ['name_uz','brand']
-    inlines = [ApartmentShotsInline]
+    inlines = [ApartmentShotsInline,ApartmentLocationInline]
 
     def get_logo(self, obj):
         image = obj.image.url if obj.image else ""

@@ -15,36 +15,6 @@ def upload_to(instance, filename):
     return f'{date_str}/{filename}'
 
 
-class Location(models.Model, GeoItem):
-    name = models.CharField(max_length=100)
-    lon = models.FloatField()  # longitude
-    lat = models.FloatField()  # latitude
-
-    @property
-    def geomap_longitude(self):
-        return '' if self.lon is None else str(self.lon)
-
-    @property
-    def geomap_latitude(self):
-        return '' if self.lat is None else str(self.lat)
-
-    @property
-    def geomap_icon(self):
-        return self.default_icon
-
-    @property
-    def geomap_popup_view(self):
-        return "<strong>{}</strong>".format(str(self))
-
-    @property
-    def geomap_popup_edit(self):
-        return self.geomap_popup_view
-
-    @property
-    def geomap_popup_common(self):
-        return self.geomap_popup_view
-
-
 class Category(models.Model):
     name = models.CharField(max_length=50, null=True)
 
@@ -98,7 +68,6 @@ class Apartment(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
     
     def __str__(self):
         return str(self.name)
@@ -111,6 +80,38 @@ class ApartmentShots(models.Model):
 
     def __str__(self):
         return f"Shot for {self.apartment.name}"
+
+
+class Location(models.Model, GeoItem):
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, null=True)
+    name = models.CharField(max_length=100)
+    lon = models.FloatField()  # longitude
+    lat = models.FloatField()  # latitude
+
+    @property
+    def geomap_longitude(self):
+        return '' if self.lon is None else str(self.lon)
+
+    @property
+    def geomap_latitude(self):
+        return '' if self.lat is None else str(self.lat)
+
+    @property
+    def geomap_icon(self):
+        return self.default_icon
+
+    @property
+    def geomap_popup_view(self):
+        return "<strong>{}</strong>".format(str(self))
+
+    @property
+    def geomap_popup_edit(self):
+        return self.geomap_popup_view
+
+    @property
+    def geomap_popup_common(self):
+        return self.geomap_popup_view
+
 
 
 class Order(models.Model):
