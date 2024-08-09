@@ -3,7 +3,7 @@ from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInl
 from django_admin_geomap import ModelAdmin
 from django.utils.safestring import mark_safe
 
-from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Banner, Location, News
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Location
 # Register your models here.
 
 class Admin(ModelAdmin):
@@ -77,14 +77,3 @@ class CategoryAdmin(TabbedTranslationAdmin):
     list_display = ['name_uz','id']
     list_display_links = ['name_uz']
     search_fields = ['name']
-
-@admin.register(Banner)
-class BannerAdmin(admin.ModelAdmin):
-    list_display = ['text','id']
-    list_display_links = ['text','id']
-    
-@admin.register(News)
-class NewsAdmin(admin.ModelAdmin):
-    list_display = ['id']
-    list_display_links = ['id']
-    search_fields = ['id']

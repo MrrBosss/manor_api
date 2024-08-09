@@ -2,7 +2,6 @@ from django.db import models
 import datetime
 from django_admin_geomap import GeoItem
 
-from .validators import validate_image_or_video
 # Create your models here.
 
 
@@ -44,16 +43,6 @@ class Location(models.Model, GeoItem):
     @property
     def geomap_popup_common(self):
         return self.geomap_popup_view
-    
-
-class News(models.Model):
-    media = models.FileField(upload_to='news', null=True,blank=True, validators=[validate_image_or_video])
-    content = models.TextField(null=True, blank=True)
-
-
-class Banner(models.Model):
-    text = models.CharField(max_length=500, null=True)
-    image = models.ImageField(upload_to='banners',null=True)
 
 
 class Category(models.Model):

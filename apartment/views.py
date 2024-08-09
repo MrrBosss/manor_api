@@ -3,9 +3,9 @@ from django_admin_geomap import geomap_context
 from rest_framework import generics, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category, Banner, Location, News
+from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category, Location
 from .serializers import ApartmentSerializer, ApartmentShotsSerializer, OrderSerializer, BrandSerializer, CitySerializer,\
-                        DistrictSerializer, CategorySerializer, BannerSerizlizer, NewsSerializer
+                        DistrictSerializer, CategorySerializer
 from .filters import ApartmentFilter
 # Create your views here.
 
@@ -56,20 +56,6 @@ class DistrictViewSet(viewsets.ModelViewSet):
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    http_method_names = ['get']
-    pagination_class = None
-
-
-class BannerViewSet(viewsets.ModelViewSet):
-    queryset = Banner.objects.all()
-    serializer_class = BannerSerizlizer
-    http_method_names = ['get']
-    pagination_class = None
-
-
-class NewsViewSet(viewsets.ModelViewSet):
-    queryset = News.objects.all()
-    serializer_class = NewsSerializer
     http_method_names = ['get']
     pagination_class = None
 

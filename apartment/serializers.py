@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Banner, News
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category
 
 
 class ApartmentSerializer(serializers.ModelSerializer):
@@ -36,18 +36,6 @@ class DistrictSerializer(serializers.ModelSerializer):
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
-        fields = '__all__'
-
-
-class BannerSerizlizer(serializers.ModelSerializer):
-    class Meta:
-        model = Banner
-        fields = '__all__'
-
-
-class NewsSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = News
         fields = '__all__'
 
 

@@ -2,9 +2,9 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path
 
 from apartment.views import ApartmentListView, ApartmentDetailView, ApartmentShotsViewSet, OrderView, BrandViewSet,\
-                            CityViewSet, DistrictViewSet, CategoryViewSet, BannerViewSet, NewsViewSet
+                            CityViewSet, DistrictViewSet, CategoryViewSet
 from rent_apartment.views import RentApartmentListView, RentApartmentDetailView, RentApartmentShotsViewSet, RentOrderView
-
+from news_and_banners.views import BannerViewSet, NewsViewSet
 router = DefaultRouter()
 router.register('apartment-shots', ApartmentShotsViewSet, basename='apartment-shots')
 router.register('brands', BrandViewSet, basename='brands')

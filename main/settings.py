@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     #internal apps
     'apartment',
     'rent_apartment',
+    'news_and_banners',
 ]
 
 MIDDLEWARE = [
