@@ -5,7 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 
 from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category, Location
 from .serializers import ApartmentSerializer, ApartmentShotsSerializer, OrderSerializer, BrandSerializer, CitySerializer,\
-                        DistrictSerializer, CategorySerializer
+                        DistrictSerializer, CategorySerializer, ApartmentDeatilSerializer
 from .filters import ApartmentFilter
 # Create your views here.
 
@@ -24,7 +24,7 @@ class ApartmentListView(generics.ListAPIView):
 
 class ApartmentDetailView(generics.RetrieveAPIView):
     queryset = Apartment.objects.all()
-    serializer_class = ApartmentSerializer
+    serializer_class = ApartmentDeatilSerializer
 
 
 class ApartmentShotsViewSet(viewsets.ModelViewSet):

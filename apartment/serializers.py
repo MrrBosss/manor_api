@@ -39,6 +39,18 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ApartmentDeatilSerializer(serializers.ModelSerializer):
+    apartment_shots = ApartmentShotsSerializer(many=True)
+    brand = BrandSerializer(read_only=True)
+    city = CitySerializer(read_only=True)
+    district = DistrictSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
+
+    class Meta:
+        model = Apartment
+        fields = '__all__'
+
+
 class OrderItemSerializer(serializers.ModelSerializer):
     class Meta:
         model = OrderItem

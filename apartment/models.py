@@ -74,7 +74,7 @@ class Apartment(models.Model):
 
 
 class ApartmentShots(models.Model):
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE,null=True)
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE,related_name='apartment_shots',null=True)
     image = models.ImageField(upload_to=upload_to, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
