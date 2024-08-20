@@ -17,12 +17,12 @@ class RentApartmentShotsSerializer(serializers.ModelSerializer):
 
    
 class LocationSerializer(serializers.ModelSerializer):
-    latitude = serializers.SerializerMethodField()
-    longitude = serializers.SerializerMethodField()
+    # latitude = serializers.SerializerMethodField()
+    # longitude = serializers.SerializerMethodField()
 
     class Meta:
         model = Location
-        fields = ['id', 'name', 'location', 'latitude', 'longitude']
+        fields = ['id', 'name', 'location']
         geo_field = 'location'  # Specify the geographical field
 
     def get_latitude(self, obj) -> float:

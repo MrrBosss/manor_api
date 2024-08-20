@@ -14,7 +14,16 @@ def upload_to(instance, filename):
     return f'{date_str}/{filename}'
 
 
-
+class Characteristic(models.Model):
+    total_area = models.FloatField(default=0)
+    residential_area = models.FloatField(default=0)
+    floor = models.IntegerField(default=0)
+    year_of_delivery = models.IntegerField(default=0)
+    house = models.CharField(max_length=100,null=True)
+    finishing = models.CharField(max_length=100, null=True)
+    view_from_window = models.CharField(max_length=100, null=True)
+    bathroom = models.IntegerField(default=0)
+    type = models.CharField(max_length=100, null=True)
 
 
 class Category(models.Model):
@@ -53,15 +62,7 @@ class Apartment(models.Model):
     price = models.FloatField(default=10.000)
     price_per_m = models.FloatField(default=1.000)
     apartment_sold = models.IntegerField(default=0)
-    total_area = models.FloatField(default=0)
-    residential_area = models.FloatField(default=0)
-    floor = models.IntegerField(default=0)
-    year_of_delivery = models.IntegerField(default=0)
-    house = models.CharField(max_length=100,null=True)
-    finishing = models.CharField(max_length=100, null=True)
-    view_from_window = models.CharField(max_length=100, null=True)
-    bathroom = models.IntegerField(default=0)
-    type = models.CharField(max_length=100, null=True)
+    characteristic = models.ManyToManyField(Characteristic)
     description = models.TextField(null=True, blank=True)
     is_finish = models.BooleanField(default=False)
     mortgage_available = models.BooleanField(default=False)

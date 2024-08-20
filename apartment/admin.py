@@ -2,7 +2,7 @@ from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
 from django.utils.safestring import mark_safe
 
-from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic
 # Register your models here.
 
 @admin.register(Brand)
@@ -50,6 +50,10 @@ class ApartmentAdmin(TabbedTranslationAdmin):
 
     get_logo.short_description = 'Логотип'
     get_logo.allow_tags = True
+
+@admin.register(Characteristic)
+class CharacteristicAdmin(admin.ModelAdmin):
+    list_display = ['id','type']
 
 
 class OrderItemInline(admin.TabularInline):

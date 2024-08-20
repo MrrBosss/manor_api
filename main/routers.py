@@ -2,7 +2,7 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path
 
 from apartment.views import ApartmentListView, ApartmentDetailView, ApartmentShotsViewSet, OrderView, BrandViewSet,\
-                            CityViewSet, DistrictViewSet, CategoryViewSet
+                            CityViewSet, DistrictViewSet, CategoryViewSet, CharacteristicViewSet
 from rent_apartment.views import RentApartmentListView, RentApartmentDetailView, RentApartmentShotsViewSet, RentOrderView,\
                                 LocationListView
 from news_and_banners.views import BannerViewSet, NewsViewSet
@@ -22,6 +22,7 @@ urlpatterns = router.urls
 urlpatterns += [
     path('apartment-list/', ApartmentListView.as_view(), name='apartment-list'),
     path('apartment-detail/<int:pk>/', ApartmentDetailView.as_view(), name='apartment-detail'),
+    path('characteristics-list', CharacteristicViewSet.as_view(), name='characteristics-list'),
     path('orders/', OrderView.as_view(), name='orders'),
     #rent_apartment
     path('location-list/', LocationListView.as_view(), name='location-list'),
