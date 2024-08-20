@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'jazzmin',
     'modeltranslation',
     'django.contrib.admin',
+    'django.contrib.gis',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -52,8 +53,9 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_spectacular',
     #third-party packages
-    'django_admin_geomap',
+    'mapwidgets',
     'rest_framework',
+    'rest_framework_gis',
     #internal apps
     'apartment',
     'rent_apartment',
@@ -97,8 +99,12 @@ WSGI_APPLICATION = 'main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.contrib.gis.db.backends.postgis',
+        'NAME': 'manor',
+        'USER': 'postgres',
+        'PASSWORD': '11111111',
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
 
@@ -176,3 +182,57 @@ LANGUAGES = (
     ('ru', gettext('Russian')),
     ('en', gettext('English')),
 )
+
+GEOS_LIBRARY_PATH = r'c:\geos\geos_c.dll'
+GDAL_LIBRARY_PATH = os.environ.get('GDAL_LIBRARY_PATH', r'c:\gdal\release-1930-gdal-3-9-1-mapserver-8-2-0\bin\gdal')
+
+
+GOOGLE_MAP_API_KEY = env('GOOGLE_MAP_API_KEY')
+MAPBOX_ACCESS_TOKEN = os.getenv("MAPBOX_ACCESS_TOKEN")
+
+# MAP_WIDGETS = {
+#     "GooglePointFieldWidget": (
+#         ("zoom", 15),
+#         ("mapCenterLocationName", 'Tashkent'),
+#     ),
+#     "GOOGLE_MAP_API_KEY": env("GOOGLE_MAP_API_KEY", default="AIzaSyBxWwsmISHb_3CokPL0N5hoyQWT-moRB_4")
+# }
+
+
+MAP_WIDGETS = {
+    "GoogleMap": {
+        "apiKey": GOOGLE_MAP_API_KEY, # your google API
+        "PointField": {
+            "interactive": {
+                "mapOptions": {
+                    "zoom": 15,  # default map initial zoom,
+                    "scrollwheel": False,
+                    "streetViewControl": True
+                },
+                "GooglePlaceAutocompleteOptions": {
+                    "componentRestrictions": {"country": "uk"}
+                },
+                "mapCenterLocationName": "London"
+            },
+        },
+    },
+    "Mapbox": {
+        "accessToken": os.getenv("MAPBOX_ACCESS_TOKEN"),
+        "PointField": {
+            "interactive": {
+                "mapOptions": {
+                    "zoom": 12,
+                    "center": (51.515618, -0.091998),
+                    "style": "mapbox://styles/mapbox/streets-v11"
+                },
+                "markerFitZoom": 14,
+            }
+        }
+    },
+    "Leaflet": {
+        "PointField": {
+            "mapOptions": {"scrollWheelZoom": True},
+            "showZoomNavigation": False,
+        }
+    }
+}

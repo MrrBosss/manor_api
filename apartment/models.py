@@ -1,6 +1,5 @@
 from django.db import models
 import datetime
-from django_admin_geomap import GeoItem
 
 # Create your models here.
 
@@ -13,6 +12,9 @@ def upload_to(instance, filename):
         date_str = datetime.now().strftime("%Y/%m/%d")  # Or use any default date
 
     return f'{date_str}/{filename}'
+
+
+
 
 
 class Category(models.Model):
@@ -80,38 +82,6 @@ class ApartmentShots(models.Model):
 
     def __str__(self):
         return f"Shot for {self.apartment.name}"
-
-
-class Location(models.Model, GeoItem):
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, null=True)
-    name = models.CharField(max_length=100)
-    lon = models.FloatField()  # longitude
-    lat = models.FloatField()  # latitude
-
-    @property
-    def geomap_longitude(self):
-        return '' if self.lon is None else str(self.lon)
-
-    @property
-    def geomap_latitude(self):
-        return '' if self.lat is None else str(self.lat)
-
-    @property
-    def geomap_icon(self):
-        return self.default_icon
-
-    @property
-    def geomap_popup_view(self):
-        return "<strong>{}</strong>".format(str(self))
-
-    @property
-    def geomap_popup_edit(self):
-        return self.geomap_popup_view
-
-    @property
-    def geomap_popup_common(self):
-        return self.geomap_popup_view
-
 
 
 class Order(models.Model):

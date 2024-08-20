@@ -3,8 +3,9 @@ from rest_framework import generics, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
 
-from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem
-from .serializers import RentApartmentSerializer, RentApartmentShotsSerializer, RentApartmentOrderSerializer
+from .models import RentApartment, RentApartmentShots, RentApartmentOrder, Location
+from .serializers import RentApartmentSerializer, RentApartmentShotsSerializer, RentApartmentOrderSerializer,\
+                        LocationSerializer
 from .filters import RentApartmentFilter
 # Create your views here.
 
@@ -26,6 +27,11 @@ class RentApartmentShotsViewSet(viewsets.ModelViewSet):
     serializer_class = RentApartmentShotsSerializer
     http_method_names = ['get']
     pagination_class = None
+
+
+class LocationListView(generics.ListAPIView):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
 
 
 class RentOrderView(generics.CreateAPIView):

@@ -1,7 +1,8 @@
 from django.db import models
 import datetime
+from django.contrib.gis.db.models import PointField
 
-from apartment.models import Brand, City, District, Category, Location
+from apartment.models import Brand, City, District, Category, Apartment
 # Create your models here.
 
 
@@ -37,7 +38,6 @@ class RentApartment(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    location = models.ForeignKey(Location, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
         return str(self.name)
@@ -50,6 +50,13 @@ class RentApartmentShots(models.Model):
 
     def __str__(self):
         return f"Shot for {self.rent_apartment.name}"
+
+
+class Location(models.Model):
+    apartment = models.ForeignKey(Apartment, on_delete=models.Case, null=True, blank=True)
+    rent_apartment = models.ForeignKey(RentApartment, on_delete=models.CASCADE, null=True, blank=True)
+    name = models.CharField(max_length=100, null=True, blank=True)
+    location = PointField("Location", geography=True, null=True)
 
 
 class RentApartmentOrder(models.Model):

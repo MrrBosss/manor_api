@@ -1,6 +1,7 @@
 from  rest_framework import serializers 
+from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
-from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem
+from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location
 
 
 class RentApartmentSerializer(serializers.ModelSerializer):
@@ -14,6 +15,27 @@ class RentApartmentShotsSerializer(serializers.ModelSerializer):
         model = RentApartmentShots
         fields = '__all__'
 
+   
+class LocationSerializer(serializers.ModelSerializer):
+    latitude = serializers.SerializerMethodField()
+    longitude = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Location
+        fields = ['id', 'name', 'location', 'latitude', 'longitude']
+        geo_field = 'location'  # Specify the geographical field
+
+    def get_latitude(self, obj) -> float:
+        if hasattr(obj, 'location') and obj.location:
+            return obj.location.y
+        
+
+
+
+    def get_longitude(self, obj) -> float:
+        if hasattr(obj, 'location') and obj.location:
+            return obj.location.x
+        return None
 
 class RentApartmentOrderItemSerializer(serializers.ModelSerializer):
     class Meta:

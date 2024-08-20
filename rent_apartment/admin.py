@@ -1,12 +1,26 @@
 from django.contrib import admin
 from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
+from django.contrib.gis.db import models
+import mapwidgets
 
-from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem
+
+from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location
 # Register your models here.
+
+@admin.register(Location)
+class LocationAdmin(admin.ModelAdmin):
+    list_display = ['name','apartment','rent_apartment','id']
+    list_display_links = ['name','apartment','rent_apartment','id']
+    search_fields = ['name','id']
+    formfield_overrides = {
+        models.PointField: {"widget": mapwidgets.LeafletPointFieldWidget}
+    }
+
 
 class RentApartmentShotsInline(admin.TabularInline):
     model = RentApartmentShots
     extra = 0
+
 
 @admin.register(RentApartment)
 class RentApartmentAdmin(TabbedTranslationAdmin):
