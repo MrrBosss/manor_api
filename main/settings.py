@@ -41,7 +41,6 @@ CORS_ALLOWED_ORIGINS = [
 
 INSTALLED_APPS = [
     'jazzmin',
-    'grappelli',
     'modeltranslation',
     'django.contrib.admin',
     'django.contrib.gis',
