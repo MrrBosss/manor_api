@@ -1,7 +1,10 @@
 from  rest_framework import serializers 
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
-from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location
+from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location, Convenience,\
+                    Condition
+from apartment.serializers import CategorySerializer, BrandSerializer, CitySerializer, CharacteristicListSerializer,\
+                                    DistrictSerializer
 
 
 class RentApartmentSerializer(serializers.ModelSerializer):
@@ -15,7 +18,19 @@ class RentApartmentShotsSerializer(serializers.ModelSerializer):
         model = RentApartmentShots
         fields = '__all__'
 
-   
+
+class ConvenienceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Convenience
+        fields = '__all__'
+
+
+class ConditionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Condition
+        fields = '__all__'
+
+
 class LocationSerializer(serializers.ModelSerializer):
     # latitude = serializers.SerializerMethodField()
     # longitude = serializers.SerializerMethodField()
@@ -29,13 +44,26 @@ class LocationSerializer(serializers.ModelSerializer):
         if hasattr(obj, 'location') and obj.location:
             return obj.location.y
         
-
-
-
     def get_longitude(self, obj) -> float:
         if hasattr(obj, 'location') and obj.location:
             return obj.location.x
         return None
+
+
+class RentApartmentDetailSerializer(serializers.ModelSerializer):
+    rent_shots = RentApartmentShotsSerializer(many=True)
+    brand = BrandSerializer(read_only=True)
+    city = CitySerializer(read_only=True)
+    district = DistrictSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
+    characteristic = CharacteristicListSerializer(read_only=True)
+    convenience = ConvenienceSerializer(read_only=True)
+    condition = ConditionSerializer(read_only=True)
+    
+    class Meta:
+        model = RentApartment
+        fields = '__all__'
+
 
 class RentApartmentOrderItemSerializer(serializers.ModelSerializer):
     class Meta:

@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic,Project
 
 
 class ApartmentSerializer(serializers.ModelSerializer):
@@ -19,6 +19,12 @@ class BrandSerializer(serializers.ModelSerializer):
     class Meta:
         model = Brand
         fields ='__all__'
+
+
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
 
 
 class CitySerializer(serializers.ModelSerializer):
@@ -42,7 +48,8 @@ class CategorySerializer(serializers.ModelSerializer):
 class CharacteristicListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Characteristic
-        fields = '__all__'
+        fields = ['total_area', 'residential_area', 'floor', 'year_of_delivery', 'house', 'finishing', 'view_from_window', 'bathroom', 'type']
+
 
 
 class ApartmentDeatilSerializer(serializers.ModelSerializer):

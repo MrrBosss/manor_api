@@ -3,9 +3,10 @@ from django_admin_geomap import geomap_context
 from rest_framework import generics, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category, Characteristic
+from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category, Characteristic, Project
 from .serializers import ApartmentSerializer, ApartmentShotsSerializer, OrderSerializer, BrandSerializer, CitySerializer,\
-                        DistrictSerializer, CategorySerializer, ApartmentDeatilSerializer, CharacteristicListSerializer
+                        DistrictSerializer, CategorySerializer, ApartmentDeatilSerializer, CharacteristicListSerializer,\
+                        ProjectSerializer
 from .filters import ApartmentFilter
 # Create your views here.
 
@@ -16,6 +17,11 @@ class ApartmentListView(generics.ListAPIView):
     search_fields = ['name']
     filter_backends = [DjangoFilterBackend]
     filterset_class = ApartmentFilter
+
+
+class CharacteristicViewSet(generics.ListAPIView):
+    queryset = Characteristic.objects.all()
+    serializer_class = CharacteristicListSerializer
 
 
 class ApartmentDetailView(generics.RetrieveAPIView):
@@ -37,6 +43,13 @@ class BrandViewSet(viewsets.ModelViewSet):
     pagination_class = None
 
 
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer
+    http_method_names = ['get']
+    pagination_class = None
+
+
 class CityViewSet(viewsets.ModelViewSet):
     queryset = City.objects.all()
     serializer_class = CitySerializer
@@ -54,11 +67,6 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
     http_method_names = ['get']
     pagination_class = None
-
-
-class CharacteristicViewSet(generics.ListAPIView):
-    queryset = Characteristic.objects.all()
-    serializer_class = CharacteristicListSerializer
 
 
 class OrderView(generics.CreateAPIView):

@@ -7,9 +7,11 @@ django-admin-geomap==1.6
 django-cors-headers==4.4.0
 django-environ==0.11.2
 django-filter==23.5
+django-grappelli==4.0.1
 django-jazzmin==2.6.2
 django-map-widgets==0.5.1
 django-modeltranslation==0.18.11
+django-tabbed-admin==1.0.4
 djangorestframework==3.15.1
 djangorestframework-gis==1.1
 djangorestframework-simplejwt==5.3.1

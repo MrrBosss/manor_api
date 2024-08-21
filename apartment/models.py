@@ -9,21 +9,26 @@ def upload_to(instance, filename):
     if instance.created_at:
         date_str = instance.created_at.strftime("%Y/%m/%d")
     else:
-        date_str = datetime.now().strftime("%Y/%m/%d")  # Or use any default date
+        date_str = datetime.datetime.now().strftime("%Y/%m/%d") # Or use any default date
 
     return f'{date_str}/{filename}'
 
 
+
 class Characteristic(models.Model):
-    total_area = models.FloatField(default=0)
-    residential_area = models.FloatField(default=0)
-    floor = models.IntegerField(default=0)
-    year_of_delivery = models.IntegerField(default=0)
-    house = models.CharField(max_length=100,null=True)
-    finishing = models.CharField(max_length=100, null=True)
-    view_from_window = models.CharField(max_length=100, null=True)
-    bathroom = models.IntegerField(default=0)
-    type = models.CharField(max_length=100, null=True)
+    total_area = models.FloatField("Umumiy maydon",default=0, null=True,blank=True)
+    residential_area = models.FloatField("Aholi yashash maydoni",default=0, null=True,blank=True)
+    floor = models.IntegerField("Qavat",default=0, null=True,blank=True)
+    year_of_delivery = models.IntegerField("Tayyor bo'lish sanasi",default=0, null=True,blank=True)
+    house = models.CharField("Uy holati",max_length=100, null=True,blank=True)
+    finishing = models.CharField("Jarayon",max_length=100, null=True,blank=True)
+    view_from_window = models.CharField("Derazadan ko'rinishi",max_length=100, null=True,blank=True)
+    bathroom = models.IntegerField("Yuvinish honasi",default=0, null=True,blank=True)
+    type = models.CharField("Turi",max_length=100, null=True,blank=True)
+
+    class Meta:
+        verbose_name = "Xarakteristika"
+        verbose_name_plural = "Xarakteristikalar"
 
 
 class Category(models.Model):
@@ -32,13 +37,35 @@ class Category(models.Model):
     def __str__(self):
         return str(self.name)
     
+    class Meta:
+        verbose_name = "Kategoriya"
+        verbose_name_plural = "Kategoriyalar"
+
 
 class Brand(models.Model):
-    name = models.CharField(max_length=100, null=True)
-    brand_image = models.ImageField(upload_to='brand-images', blank=True)
+    name = models.CharField("Brend",max_length=100, null=True,blank=True)
+    apartment_sold = models.IntegerField("Sotilgan Uylar",default=0,null=True, blank=True)
+    year_join = models.IntegerField("Yil",default=0,null=True,blank=True)
+    brand_image = models.ImageField("Brend Logosi",upload_to='brand-images', blank=True)
    
     def __str__(self):
         return str(self.name)
+
+    class Meta:
+        verbose_name = "Brend"
+        verbose_name_plural = "Brendlar"
+
+
+class Project(models.Model):
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True,blank=True)
+    name = models.CharField(max_length=50,null=True,blank=True)
+
+    def __str__(self):
+        return str(self.name)
+
+    class Meta:
+        verbose_name = "Proyekt"
+        verbose_name_plural = "Proyektlar"
 
 
 class City(models.Model):
@@ -46,6 +73,10 @@ class City(models.Model):
     
     def __str__(self):
         return str(self.name)
+
+    class Meta:
+        verbose_name = "Shahar"
+        verbose_name_plural = "Shaharlar"
 
 
 class District(models.Model):
@@ -55,34 +86,44 @@ class District(models.Model):
     def __str__(self):
         return str(self.name)
     
+    class Meta:
+        verbose_name = "Tuman"
+        verbose_name_plural = "Tumanlar"
+
 
 class Apartment(models.Model):
-    name = models.CharField(max_length=50,null=True)
-    company_name = models.CharField(max_length=50,null=True)
-    price = models.FloatField(default=10.000)
-    price_per_m = models.FloatField(default=1.000)
-    apartment_sold = models.IntegerField(default=0)
-    characteristic = models.ManyToManyField(Characteristic)
+    name = models.CharField(max_length=50,null=True, blank=True)
+    price = models.FloatField("Narx",default=10.000,null=True, blank=True)
+    price_per_m = models.FloatField(default=1.000,null=True, blank=True)
+    characteristic = models.ForeignKey(Characteristic,on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    is_finish = models.BooleanField(default=False)
-    mortgage_available = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True, null=True)
-    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True)
-    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
-    district = models.ForeignKey(District, on_delete=models.CASCADE, null=True)
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True)
-    
+    is_finish = models.BooleanField(default=False,null=True)
+    mortgage_available = models.BooleanField(default=False,null=True)
+    created_at = models.DateTimeField(auto_now_add=True,null=True)
+    brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
+    city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
+    district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+
     def __str__(self):
         return str(self.name)
 
+    class Meta:
+        verbose_name = "Turar joy"
+        verbose_name_plural = "Turar joylar"
+
 
 class ApartmentShots(models.Model):
-    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE,related_name='apartment_shots',null=True)
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE,related_name='apartment_shots',null=True,blank=True)
     image = models.ImageField(upload_to=upload_to, null=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
 
     def __str__(self):
         return f"Shot for {self.apartment.name}"
+    
+    class Meta:
+        verbose_name = "Turar joy rasmi"
+        verbose_name_plural = "Turar joy rasmlari"
 
 
 class Order(models.Model):
@@ -91,6 +132,10 @@ class Order(models.Model):
     phone_number = models.CharField(max_length=20, null=True)
     comment = models.TextField(null=True,blank=True)
     # Add other fields like customer information, shipping details, etc.
+
+    class Meta:
+        verbose_name = "Zakaz"
+        verbose_name_plural = "Zakazlar"
 
 
 class OrderItem(models.Model):

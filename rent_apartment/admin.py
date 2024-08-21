@@ -1,10 +1,11 @@
 from django.contrib import admin
-from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
+from modeltranslation.admin import TabbedTranslationAdmin, TranslationAdmin
 from django.contrib.gis.db import models
 import mapwidgets
 
 
-from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location
+from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location, Convenience,\
+                    Condition
 # Register your models here.
 
 @admin.register(Location)
@@ -17,23 +18,58 @@ class LocationAdmin(admin.ModelAdmin):
     }
 
 
+@admin.register(Convenience)
+class ConvenienceAdmin(admin.ModelAdmin):
+    list_display = ('name','id')
+    list_display_links = ('name','id')
+    search_fields = ('name',)
+
+
+@admin.register(Condition)
+class ConditionAdmin(admin.ModelAdmin):
+    list_display = ('name','id')
+    list_display_links = ('name','id')
+    search_fields = ('name',)
+
+
 class RentApartmentShotsInline(admin.TabularInline):
     model = RentApartmentShots
     extra = 0
 
-
 @admin.register(RentApartment)
-class RentApartmentAdmin(TabbedTranslationAdmin):
-    list_display = ['name_uz','tenant_name','brand','company','id']
+class RentApartmentAdmin(TranslationAdmin):
+    list_display = ['name_uz','tenant_name','brand','id']
     search_fields = ['name']
     list_display_links = ['name_uz','tenant_name']
     inlines = [RentApartmentShotsInline]
+    fieldsets = (
+        ('Uzbek (Default)', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('name_uz', 'description_uz')
+        }),
+        ('English', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('name_en', 'description_en')
+        }),
+        ('Russian', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('name_ru', 'description_ru',)
+        }),
+        ("Ijara beruvchi ma'lumotlari", {
+            'fields': ('tenant_name', 'tenant_image', 'apartment_sold')
+        }),
+        ("Narx va boshqalar", {
+            'fields': ('price_per_m','characteristic','convenience', 'condition')
+        }),
+        ("Manzil va boshqalar", {
+            'fields': ('brand', 'city', 'district', 'category')
+        }),
+    )
 
 
 class OrderItemInline(admin.TabularInline):
     model = RentApartmentOrderItem
     extra = 0
-
 
 @admin.register(RentApartmentOrder)
 class OrderAdmin(admin.ModelAdmin):

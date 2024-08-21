@@ -3,9 +3,9 @@ from rest_framework import generics, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
 
-from .models import RentApartment, RentApartmentShots, RentApartmentOrder, Location
+from .models import RentApartment, RentApartmentShots, RentApartmentOrder, Location, Convenience, Condition
 from .serializers import RentApartmentSerializer, RentApartmentShotsSerializer, RentApartmentOrderSerializer,\
-                        LocationSerializer
+                        LocationSerializer,ConvenienceSerializer, ConditionSerializer, RentApartmentDetailSerializer
 from .filters import RentApartmentFilter
 # Create your views here.
 
@@ -19,7 +19,7 @@ class RentApartmentListView(generics.ListAPIView):
 
 class RentApartmentDetailView(generics.RetrieveAPIView):
     queryset = RentApartment.objects.all()
-    serializer_class = RentApartmentSerializer
+    serializer_class = RentApartmentDetailSerializer
 
 
 class RentApartmentShotsViewSet(viewsets.ModelViewSet):
@@ -29,10 +29,24 @@ class RentApartmentShotsViewSet(viewsets.ModelViewSet):
     pagination_class = None
 
 
-class LocationListView(generics.ListAPIView):
+class ConvenienceViewSet(viewsets.ModelViewSet):
+    queryset = Convenience.objects.all()
+    serializer_class = ConvenienceSerializer
+    http_method_names = ['get']
+    pagination_class = None
+
+
+class ConditionViewSet(viewsets.ModelViewSet):
+    queryset = Condition.objects.all()
+    serializer_class = ConditionSerializer
+    http_method_names = ['get']
+    pagination_class = None
+
+class LocationViewSet(viewsets.ModelViewSet):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
-
+    http_method_names = ['get']
+    pagination_class = None
 
 class RentOrderView(generics.CreateAPIView):
     queryset = RentApartmentOrder.objects.all()

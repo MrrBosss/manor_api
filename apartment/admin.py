@@ -1,20 +1,43 @@
 from django.contrib import admin
-from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline
+from tabbed_admin import TabbedModelAdmin
+from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline, TranslationAdmin
 from django.utils.safestring import mark_safe
 
-from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic,\
+                    Project
+# from .forms import ApartmentForm
 # Register your models here.
+
+class ProjectInline(admin.TabularInline):
+    model =  Project
+    extra = 0
+    fieldsets = (
+        ('Project Information', {
+            'fields': ('brand', 'name')
+        }),
+    )
 
 @admin.register(Brand)
 class BrandAdmin(admin.ModelAdmin):
     list_display = ['name','id']
     list_display_links = ['name']
     search_fields = ['name']
-
+    inlines = [ProjectInline]
+    fieldsets = (
+        ('Brand', {
+            'fields': ('name', 'apartment_sold','year_join','brand_image')
+        }),
+    )
+    
 
 class DistrictInline(admin.TabularInline):
     model = District
     extra = 0
+    fieldsets = (
+        ('Tuman', {
+            'fields': ('name', 'city')
+        }),
+    )
 
 @admin.register(City)
 class CityAdmin(admin.ModelAdmin):
@@ -22,25 +45,71 @@ class CityAdmin(admin.ModelAdmin):
     list_display_links = ['name']
     search_fields = ['name','district']
     inlines = [DistrictInline]
+    fieldsets = (
+        ('Shahar ', {
+            'fields': ('name',)
+        }),
+    )
 
 
 @admin.register(Category)
-class CategoryAdmin(TabbedTranslationAdmin):
+class CategoryAdmin(TranslationAdmin):
     list_display = ['name_uz','id']
     list_display_links = ['name_uz']
     search_fields = ['name']
-
+    
+@admin.register(Characteristic)
+class CharacteristicAdmin(TranslationAdmin):
+    list_display = ['type_uz', 'bathroom', 'view_from_window_uz', 'total_area','id',]
+    list_display_links = ['type_uz','id',]
+    fieldsets = (
+        ('Uzbek (Default)', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('house_uz','finishing_uz','view_from_window_uz','type_uz')
+        }),
+        ('English', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('house_en','finishing_en','view_from_window_en','type_en')
+        }),
+        ('Russian', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('house_ru','finishing_ru','view_from_window_ru','type_ru')
+        }),
+        ('Boshqalar', {
+            'fields': ( 'total_area', 'residential_area', 'floor','year_of_delivery','bathroom')
+        }),
+    )
 
 class ApartmentShotsInline(admin.TabularInline):
     model = ApartmentShots
     extra = 0
-    
+    fieldsets = (
+        ('Turar joy rasmlari', {
+            'fields': ('apartment', 'image')
+        }),
+    )
 @admin.register(Apartment)
-class ApartmentAdmin(TabbedTranslationAdmin):
+class ApartmentAdmin(admin.ModelAdmin):
     list_display = ['name_uz','brand','city','district','id']
     search_fields = ['company_name', 'name']
     list_display_links = ['name_uz','brand']
-    inlines = [ApartmentShotsInline]
+    inlines = [ApartmentShotsInline,]
+
+    # Define fieldsets to group and order fields in the form view
+    fieldsets = (
+        ('Umumiy malumot', {
+            'fields': ('brand', 'name', 'description','category')
+        }),
+        ('Narx va Sotuv', {
+            'fields': ('price', 'price_per_m',)
+        }),
+        ('Xarakteristika', {
+            'fields': ('characteristic','is_finish', 'mortgage_available')
+        }),
+        ('Manzil', {
+            'fields': ('city', 'district')
+        }),
+    )
 
     def get_logo(self, obj):
         image = obj.image.url if obj.image else ""
@@ -51,18 +120,15 @@ class ApartmentAdmin(TabbedTranslationAdmin):
     get_logo.short_description = 'Логотип'
     get_logo.allow_tags = True
 
-@admin.register(Characteristic)
-class CharacteristicAdmin(admin.ModelAdmin):
-    list_display = ['id','type']
 
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem
     extra = 0
-
+    
 @admin.register(Order)
 class OrderAdmin(admin.ModelAdmin):
     list_display = ['order_date', 'id']
     list_display_links =  ['order_date','id']
     inlines = [OrderItemInline]
-
+   
