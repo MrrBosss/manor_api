@@ -20,6 +20,7 @@ env = environ.Env()
 env.read_env(str(BASE_DIR / ".env"))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
+# GDAL_LIBRARY_PATH = env('GDAL_LIBRARY_PATH')
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'django-insecure-s+o@(ort#=9%o@ak1m)&xx5)53g)87ie9q!#e3ky1kxp!y75m!'
