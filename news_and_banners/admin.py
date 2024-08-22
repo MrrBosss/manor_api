@@ -11,6 +11,6 @@ class BannerAdmin(TabbedTranslationAdmin):
     
 @admin.register(News)
 class NewsAdmin(TabbedTranslationAdmin):
-    list_display = ['id']
-    list_display_links = ['id']
+    list_display = ['content','id']
+    list_display_links = ['content','id']
     search_fields = ['id']

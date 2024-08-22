@@ -29,6 +29,8 @@ class Characteristic(models.Model):
         verbose_name = "Xarakteristika"
         verbose_name_plural = "Xarakteristikalar"
 
+    def __str__(self):
+        return str(self.type)
 
 class Category(models.Model):
     name = models.CharField(max_length=50, null=True)
@@ -96,7 +98,7 @@ class Apartment(models.Model):
     price_per_m = models.FloatField(default=1.000,null=True, blank=True)
     characteristic = models.ForeignKey(Characteristic,on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    is_finish = models.BooleanField(default=False,null=True)
+    # is_finish = models.BooleanField(default=False,null=True)
     mortgage_available = models.BooleanField(default=False,null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)

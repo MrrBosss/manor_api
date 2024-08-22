@@ -89,7 +89,7 @@ class ApartmentShotsInline(admin.TabularInline):
         }),
     )
 @admin.register(Apartment)
-class ApartmentAdmin(admin.ModelAdmin):
+class ApartmentAdmin(TranslationAdmin):
     list_display = ['name_uz','brand','project','city','district','id']
     search_fields = ['company_name', 'name']
     list_display_links = ['name_uz','brand']
@@ -98,17 +98,23 @@ class ApartmentAdmin(admin.ModelAdmin):
 
     # Define fieldsets to group and order fields in the form view
     fieldsets = (
+        ('Uzbek (Default)', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('name_uz', 'description_uz')
+        }),
+        ('English', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('name_en', 'description_en')
+        }),
+        ('Russian', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('name_ru', 'description_ru',)
+        }),
         ('Umumiy malumot', {
-            'fields': ('brand','project', 'name', 'description','category')
+            'fields': ('brand','project','category','city', 'district', 'mortgage_available')
         }),
-        ('Narx va Sotuv', {
-            'fields': ('price', 'price_per_m',)
-        }),
-        ('Xarakteristika', {
-            'fields': ('characteristic','is_finish', 'mortgage_available')
-        }),
-        ('Manzil', {
-            'fields': ('city', 'district')
+        ('Narx va Boshqalar', {
+            'fields': ('price', 'price_per_m','characteristic',)
         }),
     )
 
