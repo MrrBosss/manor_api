@@ -5,7 +5,7 @@ from django.utils.safestring import mark_safe
 
 from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic,\
                     Project
-# from .forms import ApartmentForm
+from .forms import ApartmentForm
 # Register your models here.
 
 class ProjectInline(admin.TabularInline):
@@ -90,15 +90,16 @@ class ApartmentShotsInline(admin.TabularInline):
     )
 @admin.register(Apartment)
 class ApartmentAdmin(admin.ModelAdmin):
-    list_display = ['name_uz','brand','city','district','id']
+    list_display = ['name_uz','brand','project','city','district','id']
     search_fields = ['company_name', 'name']
     list_display_links = ['name_uz','brand']
     inlines = [ApartmentShotsInline,]
+    form = ApartmentForm
 
     # Define fieldsets to group and order fields in the form view
     fieldsets = (
         ('Umumiy malumot', {
-            'fields': ('brand', 'name', 'description','category')
+            'fields': ('brand','project', 'name', 'description','category')
         }),
         ('Narx va Sotuv', {
             'fields': ('price', 'price_per_m',)

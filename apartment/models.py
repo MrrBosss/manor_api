@@ -14,7 +14,6 @@ def upload_to(instance, filename):
     return f'{date_str}/{filename}'
 
 
-
 class Characteristic(models.Model):
     total_area = models.FloatField("Umumiy maydon",default=0, null=True,blank=True)
     residential_area = models.FloatField("Aholi yashash maydoni",default=0, null=True,blank=True)
@@ -101,6 +100,7 @@ class Apartment(models.Model):
     mortgage_available = models.BooleanField(default=False,null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
+    project = models.ForeignKey(Project, on_delete=models.CASCADE,null=True,blank=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)

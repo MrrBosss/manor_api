@@ -53,6 +53,8 @@ INSTALLED_APPS = [
     'corsheaders',
     'drf_spectacular',
     #third-party packages
+    'dal',
+    'dal_select2',  
     'mapwidgets',
     'rest_framework',
     'rest_framework_gis',
