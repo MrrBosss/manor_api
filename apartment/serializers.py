@@ -51,7 +51,6 @@ class CharacteristicListSerializer(serializers.ModelSerializer):
         fields = ['total_area', 'residential_area', 'floor', 'year_of_delivery', 'house', 'finishing', 'view_from_window', 'bathroom', 'type']
 
 
-
 class ApartmentDeatilSerializer(serializers.ModelSerializer):
     apartment_shots = ApartmentShotsSerializer(many=True)
     brand = BrandSerializer(read_only=True)
