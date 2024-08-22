@@ -92,6 +92,18 @@ class District(models.Model):
         verbose_name_plural = "Tumanlar"
 
 
+class Features(models.Model):
+    text = models.CharField("Matn",max_length=500,null=True,blank=True)
+    image = models.ImageField("Rasm",upload_to='Features',null=True,blank=True)
+
+    class Meta:
+        verbose_name = "Xususiyat"
+        verbose_name_plural = "Xususiyatlar"
+
+    def __str__(self):
+        return str(self.text)
+
+
 class Apartment(models.Model):
     name = models.CharField(max_length=50,null=True, blank=True)
     price = models.FloatField("Narx",default=10.000,null=True, blank=True)
@@ -101,6 +113,7 @@ class Apartment(models.Model):
     room = models.IntegerField(null=True,blank=True)
     mortgage_available = models.BooleanField(default=False,null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
+    feature = models.ManyToManyField(Features,blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE,null=True,blank=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)

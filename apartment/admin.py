@@ -4,7 +4,7 @@ from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInl
 from django.utils.safestring import mark_safe
 
 from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic,\
-                    Project
+                    Project, Features
 from .forms import ApartmentForm
 # Register your models here.
 
@@ -114,7 +114,7 @@ class ApartmentAdmin(TranslationAdmin):
             'fields': ('room','brand','project','category','city', 'district', 'mortgage_available')
         }),
         ('Narx va Boshqalar', {
-            'fields': ('price', 'price_per_m','characteristic',)
+            'fields': ('price', 'price_per_m','characteristic','feature')
         }),
     )
 
@@ -128,6 +128,11 @@ class ApartmentAdmin(TranslationAdmin):
     get_logo.allow_tags = True
 
 
+@admin.register(Features)
+class FeaturesAdmin(TranslationAdmin):
+    list_display = ['text_uz','id']
+    list_display_links = ['text_uz','id']
+    
 
 class OrderItemInline(admin.TabularInline):
     model = OrderItem

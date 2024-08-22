@@ -3,10 +3,10 @@ from django_admin_geomap import geomap_context
 from rest_framework import generics, viewsets
 from django_filters.rest_framework import DjangoFilterBackend
 
-from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category, Characteristic, Project
+from .models import Apartment, ApartmentShots, Order, Brand, City, District, Category, Characteristic, Project, Features
 from .serializers import ApartmentSerializer, ApartmentShotsSerializer, OrderSerializer, BrandSerializer, CitySerializer,\
                         DistrictSerializer, CategorySerializer, ApartmentDeatilSerializer, CharacteristicListSerializer,\
-                        ProjectSerializer
+                        ProjectSerializer, FeaturesSerializer
 from .filters import ApartmentFilter
 # Create your views here.
 
@@ -23,6 +23,12 @@ class CharacteristicViewSet(generics.ListAPIView):
     queryset = Characteristic.objects.all()
     serializer_class = CharacteristicListSerializer
 
+
+class FeatureViewSet(viewsets.ModelViewSet):
+    queryset = Features.objects.all()
+    serializer_class = FeaturesSerializer
+    http_method_names = ['get']
+    pagination_class = None
 
 class ApartmentDetailView(generics.RetrieveAPIView):
     queryset = Apartment.objects.all()

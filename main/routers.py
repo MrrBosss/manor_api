@@ -2,11 +2,12 @@ from rest_framework.routers import DefaultRouter
 from django.urls import path
 
 from apartment.views import ApartmentListView, ApartmentDetailView, ApartmentShotsViewSet, OrderView, BrandViewSet,\
-                            CityViewSet, DistrictViewSet, CategoryViewSet, CharacteristicViewSet, ProjectViewSet
+                            CityViewSet, DistrictViewSet, CategoryViewSet, CharacteristicViewSet, ProjectViewSet, FeatureViewSet
 from rent_apartment.views import RentApartmentListView, RentApartmentDetailView, RentApartmentShotsViewSet, RentOrderView,\
                                 LocationViewSet,ConvenienceViewSet, ConditionViewSet
 from news_and_banners.views import BannerViewSet, NewsViewSet
 router = DefaultRouter()
+router.register('features', FeatureViewSet,basename='features')
 router.register('projects', ProjectViewSet, basename='projects')
 router.register('apartment-shots', ApartmentShotsViewSet, basename='apartment-shots')
 router.register('brands', BrandViewSet, basename='brands')
