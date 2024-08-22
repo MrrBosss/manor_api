@@ -90,9 +90,9 @@ class ApartmentShotsInline(admin.TabularInline):
     )
 @admin.register(Apartment)
 class ApartmentAdmin(TranslationAdmin):
-    list_display = ['name_uz','brand','project','city','district','id']
-    search_fields = ['company_name', 'name']
-    list_display_links = ['name_uz','brand']
+    list_display = ['name_uz','brand','room','project','city','district','id']
+    search_fields = ['company_name', 'name','room']
+    list_display_links = ['name_uz','brand','room']
     inlines = [ApartmentShotsInline,]
     form = ApartmentForm
 
@@ -111,7 +111,7 @@ class ApartmentAdmin(TranslationAdmin):
             'fields': ('name_ru', 'description_ru',)
         }),
         ('Umumiy malumot', {
-            'fields': ('brand','project','category','city', 'district', 'mortgage_available')
+            'fields': ('room','brand','project','category','city', 'district', 'mortgage_available')
         }),
         ('Narx va Boshqalar', {
             'fields': ('price', 'price_per_m','characteristic',)

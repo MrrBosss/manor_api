@@ -33,7 +33,7 @@ class Characteristic(models.Model):
         return str(self.type)
 
 class Category(models.Model):
-    name = models.CharField(max_length=50, null=True)
+    name = models.CharField(max_length=50,null=True,blank=True)
 
     def __str__(self):
         return str(self.name)
@@ -98,7 +98,7 @@ class Apartment(models.Model):
     price_per_m = models.FloatField(default=1.000,null=True, blank=True)
     characteristic = models.ForeignKey(Characteristic,on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
-    # is_finish = models.BooleanField(default=False,null=True)
+    room = models.IntegerField(null=True,blank=True)
     mortgage_available = models.BooleanField(default=False,null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)

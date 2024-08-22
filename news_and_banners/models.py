@@ -13,6 +13,7 @@ class News(models.Model):
 
 
 class Banner(models.Model):
+    alias = models.URLField("Link",null=True,blank=True)
     text = models.CharField(max_length=500, null=True,blank=True)
     image = models.ImageField(upload_to='banners',null=True,blank=True)
 

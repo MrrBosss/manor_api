@@ -19,14 +19,14 @@ class LocationAdmin(admin.ModelAdmin):
 
 
 @admin.register(Convenience)
-class ConvenienceAdmin(admin.ModelAdmin):
+class ConvenienceAdmin(TranslationAdmin):
     list_display = ('name','id')
     list_display_links = ('name','id')
     search_fields = ('name',)
 
 
 @admin.register(Condition)
-class ConditionAdmin(admin.ModelAdmin):
+class ConditionAdmin(TranslationAdmin):
     list_display = ('name','id')
     list_display_links = ('name','id')
     search_fields = ('name',)
