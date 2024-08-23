@@ -33,7 +33,7 @@ class Characteristic(models.Model):
         return str(self.type)
 
 class Category(models.Model):
-    name = models.CharField(max_length=50,null=True,blank=True)
+    name = models.CharField("Categoriya",max_length=50,null=True,blank=True)
 
     def __str__(self):
         return str(self.name)
@@ -59,7 +59,7 @@ class Brand(models.Model):
 
 class Project(models.Model):
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True,blank=True)
-    name = models.CharField(max_length=50,null=True,blank=True)
+    name = models.CharField("Proyekt",max_length=50,null=True,blank=True)
 
     def __str__(self):
         return str(self.name)
@@ -70,7 +70,7 @@ class Project(models.Model):
 
 
 class City(models.Model):
-    name = models.CharField(max_length=50,null=True)
+    name = models.CharField("Shahar",max_length=50,null=True)
     
     def __str__(self):
         return str(self.name)
@@ -81,7 +81,7 @@ class City(models.Model):
 
 
 class District(models.Model):
-    name = models.CharField(max_length=50, null=True)
+    name = models.CharField("Tuman",max_length=50, null=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True)
 
     def __str__(self):
@@ -105,13 +105,13 @@ class Features(models.Model):
 
 
 class Apartment(models.Model):
-    name = models.CharField(max_length=50,null=True, blank=True)
+    name = models.CharField("Nomi",max_length=50,null=True, blank=True)
     price = models.FloatField("Narx",default=10.000,null=True, blank=True)
-    price_per_m = models.FloatField(default=1.000,null=True, blank=True)
+    price_per_m = models.FloatField("Narx kv metr",default=1.000,null=True, blank=True)
     characteristic = models.ForeignKey(Characteristic,on_delete=models.CASCADE, null=True, blank=True)
-    description = models.TextField(null=True, blank=True)
-    room = models.IntegerField(null=True,blank=True)
-    mortgage_available = models.BooleanField(default=False,null=True)
+    description = models.TextField("Ta'rif",null=True, blank=True)
+    room = models.IntegerField("Xonalar soni",null=True,blank=True)
+    mortgage_available = models.BooleanField("Ipoteka",default=False,null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     feature = models.ManyToManyField(Features,blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
@@ -143,9 +143,9 @@ class ApartmentShots(models.Model):
 
 class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True, null=True)
-    name = models.CharField(max_length=100, null=True)
-    phone_number = models.CharField(max_length=20, null=True)
-    comment = models.TextField(null=True,blank=True)
+    name = models.CharField("Ism",max_length=100, null=True)
+    phone_number = models.CharField("Telefon raqam",max_length=20, null=True)
+    comment = models.TextField("Izoh",null=True,blank=True)
     # Add other fields like customer information, shipping details, etc.
 
     class Meta:

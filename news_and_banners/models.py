@@ -5,7 +5,7 @@ from apartment.validators import validate_image_or_video
 
 class News(models.Model):
     media = models.FileField(upload_to="Media", null=True,blank=True, validators=[validate_image_or_video])
-    content = models.TextField("Matn",null=True, blank=True)
+    content = models.TextField("Kontent",null=True, blank=True)
 
     class Meta:
         verbose_name = 'Yangilik'

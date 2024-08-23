@@ -18,7 +18,7 @@ def upload_to(instance, filename):
 
 
 class Convenience(models.Model):
-    name = models.CharField(max_length=50, null=True, blank=True)
+    name = models.CharField("Qulaylik",max_length=50, null=True, blank=True)
     
     def __str__(self):
         return str(self.name)
@@ -29,7 +29,7 @@ class Convenience(models.Model):
 
 
 class Condition(models.Model):
-    name = models.CharField(max_length=50, null=True,blank=True)
+    name = models.CharField("Sharoit",max_length=50, null=True,blank=True)
 
     def __str__(self):
         return str(self.name)
@@ -46,7 +46,7 @@ class RentApartment(models.Model):
     tenant_image = models.ImageField("Surati",upload_to=upload_to, null=True, blank=True)
     apartment_sold = models.IntegerField("Turar joy",default=0,null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
-    description = models.TextField(null=True, blank=True)
+    description = models.TextField("Ta'rif",null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
@@ -80,7 +80,7 @@ class RentApartmentShots(models.Model):
 class Location(models.Model):
     apartment = models.ForeignKey(Apartment, on_delete=models.Case, null=True, blank=True)
     rent_apartment = models.ForeignKey(RentApartment, on_delete=models.CASCADE, null=True, blank=True)
-    name = models.CharField("Nomi",max_length=100, null=True, blank=True)
+    name = models.CharField("Manzil nomi",max_length=100, null=True, blank=True)
     location = PointField("Manzil", geography=True, null=True,blank=True)
 
     def __str__(self):
@@ -93,9 +93,9 @@ class Location(models.Model):
 
 class RentApartmentOrder(models.Model):
     order_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)
-    name = models.CharField(max_length=100, null=True, blank=True)
-    phone_number = models.CharField(max_length=20, null=True, blank=True)
-    comment = models.TextField(null=True,blank=True)
+    name = models.CharField("Ism",max_length=100, null=True, blank=True)
+    phone_number = models.CharField("Telefon raqam",max_length=20, null=True, blank=True)
+    comment = models.TextField("Izoh",null=True,blank=True)
     # Add other fields like customer information, shipping details, etc.
 
     def __str__(self):
