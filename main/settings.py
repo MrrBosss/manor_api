@@ -323,3 +323,10 @@ JAZZMIN_UI_TWEAKS = {
     "actions_sticky_top": False
 }
 
+if os.name == 'posix':
+    GDAL_LIBRARY_PATH = '/usr/lib/libgdal.so'  # Linux path
+    GEOS_LIBRARY_PATH = '/usr/lib/libgeos_c.so'
+
+elif os.name == 'nt':
+    GDAL_LIBRARY_PATH = Path("C:/path/to/your/gdal.dll")
+    GEOS_LIBRARY_PATH = Path("C:/path/to/your/geos_c.dll")
