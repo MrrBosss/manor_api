@@ -108,7 +108,7 @@ class Apartment(models.Model):
     name = models.CharField("Nomi",max_length=50,null=True, blank=True)
     price = models.FloatField("Narx",default=10.000,null=True, blank=True)
     price_per_m = models.FloatField("Narx kv metr",default=1.000,null=True, blank=True)
-    characteristic = models.ForeignKey(Characteristic,on_delete=models.CASCADE, null=True, blank=True)
+    # characteristic = models.ForeignKey(Characteristic,on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField("Ta'rif",null=True, blank=True)
     room = models.IntegerField("Xonalar soni",null=True,blank=True)
     mortgage_available = models.BooleanField("Ipoteka",default=False,null=True)
@@ -139,6 +139,16 @@ class ApartmentShots(models.Model):
     class Meta:
         verbose_name = "Turar joy rasmi"
         verbose_name_plural = "Turar joy rasmlari"
+
+
+class ApartmentCharacteristic(models.Model):
+    apartment = models.ForeignKey("Apartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
+    characteristic = models.ForeignKey("Characteristic", on_delete=models.CASCADE,related_name="+",null=True,blank=True)
+    value = models.CharField("qiymat",max_length=255, null=True,blank=True)
+
+    class Meta:
+        verbose_name = "Xarakteristika"
+        verbose_name_plural = "Xarakteristikalar"
 
 
 class Order(models.Model):

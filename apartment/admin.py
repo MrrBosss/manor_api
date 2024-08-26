@@ -1,10 +1,9 @@
 from django.contrib import admin
-from tabbed_admin import TabbedModelAdmin
-from modeltranslation.admin import TabbedTranslationAdmin, TranslationTabularInline, TranslationAdmin
+from modeltranslation.admin import  TranslationAdmin
 from django.utils.safestring import mark_safe
 
 from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic,\
-                    Project, Features
+                    Project, Features, ApartmentCharacteristic
 from .forms import ApartmentForm
 # Register your models here.
 
@@ -58,27 +57,50 @@ class CategoryAdmin(TranslationAdmin):
     list_display_links = ['name_uz']
     search_fields = ['name']
     
-@admin.register(Characteristic)
-class CharacteristicAdmin(TranslationAdmin):
-    list_display = ['type_uz', 'bathroom', 'view_from_window_uz', 'total_area','id',]
-    list_display_links = ['type_uz','id',]
-    fieldsets = (
-        ('Uzbek (Default)', {
-            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
-            'fields': ('house_uz','finishing_uz','view_from_window_uz','type_uz')
-        }),
-        ('English', {
-            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
-            'fields': ('house_en','finishing_en','view_from_window_en','type_en')
-        }),
-        ('Russian', {
-            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
-            'fields': ('house_ru','finishing_ru','view_from_window_ru','type_ru')
-        }),
-        ('Boshqalar', {
-            'fields': ( 'total_area', 'residential_area', 'floor','year_of_delivery','bathroom')
-        }),
-    )
+# @admin.register(Characteristic)
+# class CharacteristicAdmin(TranslationAdmin):
+#     list_display = ['type_uz', 'bathroom', 'view_from_window_uz', 'total_area','id',]
+#     list_display_links = ['type_uz','id',]
+#     fieldsets = (
+#         ('Uzbek (Default)', {
+#             'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+#             'fields': ('house_uz','finishing_uz','view_from_window_uz','type_uz')
+#         }),
+#         ('English', {
+#             'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+#             'fields': ('house_en','finishing_en','view_from_window_en','type_en')
+#         }),
+#         ('Russian', {
+#             'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+#             'fields': ('house_ru','finishing_ru','view_from_window_ru','type_ru')
+#         }),
+#         ('Boshqalar', {
+#             'fields': ( 'total_area', 'residential_area', 'floor','year_of_delivery','bathroom')
+#         }),
+#     )
+
+
+class ApartmentCharacteristicInline(admin.TabularInline):
+    model = ApartmentCharacteristic
+    extra = 0
+
+    # fieldsets = (
+    #     ('Uzbek (Default)', {
+    #         'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+    #         'fields': ('house_uz','finishing_uz','view_from_window_uz','type_uz')
+    #     }),
+    #     ('English', {
+    #         'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+    #         'fields': ('house_en','finishing_en','view_from_window_en','type_en')
+    #     }),
+    #     ('Russian', {
+    #         'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+    #         'fields': ('house_ru','finishing_ru','view_from_window_ru','type_ru')
+    #     }),
+    #     ('Boshqalar', {
+    #         'fields': ( 'total_area', 'residential_area', 'floor','year_of_delivery','bathroom')
+    #     }),
+    # )
 
 class ApartmentShotsInline(admin.TabularInline):
     model = ApartmentShots
@@ -88,12 +110,13 @@ class ApartmentShotsInline(admin.TabularInline):
             'fields': ('apartment', 'image')
         }),
     )
+
 @admin.register(Apartment)
 class ApartmentAdmin(TranslationAdmin):
     list_display = ['name_uz','brand','room','project','city','district','id']
     search_fields = ['company_name', 'name','room']
     list_display_links = ['name_uz','brand','room']
-    inlines = [ApartmentShotsInline,]
+    inlines = [ApartmentShotsInline,ApartmentCharacteristicInline]
     form = ApartmentForm
 
     # Define fieldsets to group and order fields in the form view
@@ -114,7 +137,7 @@ class ApartmentAdmin(TranslationAdmin):
             'fields': ('room','brand','project','category','city', 'district', 'mortgage_available')
         }),
         ('Narx va Boshqalar', {
-            'fields': ('price', 'price_per_m','characteristic','feature')
+            'fields': ('price', 'price_per_m','feature')
         }),
     )
 
