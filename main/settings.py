@@ -246,60 +246,82 @@ MAP_WIDGETS = {
 
 
 JAZZMIN_SETTINGS = {
-    "navigation_expanded": True,
-    "related_modal_active": True,
-    "changeform_format": "vertical",
-    "show_sidebar": True,
-    "hide_models": [
-        "billboard.BillboardSlot",
-        "billboard.BillboardDailyTrafficReport",
-        "contract.Video"
-    ],
-    'hide_apps': [
-        # "django_celery_beat",
-        "user"
-    ]
-}
+    # title of the window (Will default to current_admin_site.site_title if absent or None)
+    "site_title": "Manor Admin",
+
+    # Title on the login screen (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_header": "Manor",
+
+    # Title on the brand (19 chars max) (defaults to current_admin_site.site_header if absent or None)
+    "site_brand": "Manor",
+
+    # Logo to use for your site, must be present in static files, used for brand on top left
+    # "site_logo": "books/img/logo.png",
+
+    # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
+    "login_logo": None,
+
+    # Logo to use for login form in dark themes (defaults to login_logo)
+    "login_logo_dark": None,
+
+    # CSS classes that are applied to the logo above
+    "site_logo_classes": "img-circle",
+
+    # Relative path to a favicon for your site, will default to site_logo if absent (ideally 32x32 px)
+    "site_icon": None,
+
+    # Welcome text on the login screen
+    "welcome_sign": "Manor Admin Paneliga Xush Kelibsiz!",
+
+    # Copyright on the footer
+    "copyright": "Acme Library Ltd",
+
+    # List of model admins to search from the search bar, search bar omitted if excluded
+    # If you want to use a single search field you dont need to use a list, you can use a simple string 
+    "search_model": [],
+
+    #customizing your admin Ui, if this is True  there will be an icon in the top right of the screen
+    #  that allows you to customise the interface.
+    "show_ui_builder": True,
+
+    # List of apps (and/or models) to base side menu ordering off of (does not need to contain all apps/models)
+    "order_with_respect_to": ["Brand", "Category", "City", "Apartment","Characteristic", "Order"],
+
+
+    }
+
 JAZZMIN_UI_TWEAKS = {
-    "navbar_small_text": True,
-    "footer_small_text": True,
-    "body_small_text": True,
-    "brand_small_text": True,
-    "brand_colour": "navbar-dark",
+    "navbar_small_text": False,
+    "footer_small_text": False,
+    "body_small_text": False,
+    "brand_small_text": False,
+    "brand_colour": False,
     "accent": "accent-primary",
-    "navbar": "navbar-gray-dark navbar-dark",
-    "no_navbar_border": True,
+    "navbar": "navbar-dark",
+    "no_navbar_border": False,
     "navbar_fixed": False,
     "layout_boxed": False,
     "footer_fixed": False,
-    "sidebar_fixed": True,
-    "sidebar": "sidebar-dark-info",
-    "sidebar_nav_small_text": True,
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-primary",
+    "sidebar_nav_small_text": False,
     "sidebar_disable_expand": False,
     "sidebar_nav_child_indent": False,
     "sidebar_nav_compact_style": False,
     "sidebar_nav_legacy_style": True,
-    "sidebar_nav_flat_style": True,
-    "theme": "minty",
+    "sidebar_nav_flat_style": False,
+    "theme": "lumen",
     "dark_mode_theme": None,
     "button_classes": {
-        "primary": "btn-primary",
-        "secondary": "btn-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-outline-info",
+        "warning": "btn-outline-warning",
+        "danger": "btn-outline-danger",
+        "success": "btn-outline-success"
     },
-    "actions_sticky_top": True,
-    "custom_links": {
-        "ChannelsAdmin": [{
-            "name": "Channel",
-            "icon": "fas fa-phone",
-
-        }]
-    },
+    "actions_sticky_top": False
 }
-
 
 if os.name == 'posix':
     GDAL_LIBRARY_PATH = '/usr/lib/libgdal.so'  # Linux path
