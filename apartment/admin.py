@@ -57,27 +57,28 @@ class CategoryAdmin(TranslationAdmin):
     list_display_links = ['name_uz']
     search_fields = ['name']
     
-# @admin.register(Characteristic)
-# class CharacteristicAdmin(TranslationAdmin):
-#     list_display = ['type_uz', 'bathroom', 'view_from_window_uz', 'total_area','id',]
-#     list_display_links = ['type_uz','id',]
-#     fieldsets = (
-#         ('Uzbek (Default)', {
-#             'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
-#             'fields': ('house_uz','finishing_uz','view_from_window_uz','type_uz')
-#         }),
-#         ('English', {
-#             'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
-#             'fields': ('house_en','finishing_en','view_from_window_en','type_en')
-#         }),
-#         ('Russian', {
-#             'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
-#             'fields': ('house_ru','finishing_ru','view_from_window_ru','type_ru')
-#         }),
-#         ('Boshqalar', {
-#             'fields': ( 'total_area', 'residential_area', 'floor','year_of_delivery','bathroom')
-#         }),
-#     )
+
+@admin.register(Characteristic)
+class CharacteristicAdmin(TranslationAdmin):
+    list_display = ['type_uz', 'bathroom', 'view_from_window_uz', 'total_area','id',]
+    list_display_links = ['type_uz','id',]
+    fieldsets = (
+        ('Uzbek (Default)', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('house_uz','finishing_uz','view_from_window_uz','type_uz')
+        }),
+        ('English', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('house_en','finishing_en','view_from_window_en','type_en')
+        }),
+        ('Russian', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('house_ru','finishing_ru','view_from_window_ru','type_ru')
+        }),
+        ('Boshqalar', {
+            'fields': ( 'total_area', 'residential_area', 'floor','year_of_delivery','bathroom')
+        }),
+    )
 
 
 class ApartmentCharacteristicInline(admin.TabularInline):

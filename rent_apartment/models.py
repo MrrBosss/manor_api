@@ -52,8 +52,8 @@ class RentApartment(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
-    convenience = models.ForeignKey(Convenience,on_delete=models.CASCADE,null=True,blank=True)
-    condition = models.ForeignKey(Condition,on_delete=models.CASCADE,null=True,blank=True)
+    convenience = models.ManyToManyField(Convenience,blank=True)
+    condition = models.ManyToManyField(Condition,blank=True)
     characteristic = models.ForeignKey(Characteristic, on_delete=models.CASCADE, null=True,blank=True)
 
     def __str__(self):

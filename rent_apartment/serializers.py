@@ -7,12 +7,6 @@ from apartment.serializers import CategorySerializer, BrandSerializer, CitySeria
                                     DistrictSerializer
 
 
-class RentApartmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RentApartment
-        fields = '__all__'
-
-
 class RentApartmentShotsSerializer(serializers.ModelSerializer):
     class Meta:
         model = RentApartmentShots
@@ -51,6 +45,21 @@ class LocationSerializer(serializers.ModelSerializer):
 
 
 class RentApartmentDetailSerializer(serializers.ModelSerializer):
+    rent_shots = RentApartmentShotsSerializer(many=True)
+    brand = BrandSerializer(read_only=True)
+    city = CitySerializer(read_only=True)
+    district = DistrictSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
+    characteristic = CharacteristicListSerializer(read_only=True)
+    convenience = ConvenienceSerializer(read_only=True)
+    condition = ConditionSerializer(read_only=True)
+    
+    class Meta:
+        model = RentApartment
+        fields = '__all__'
+
+
+class RentApartmentSerializer(serializers.ModelSerializer):
     rent_shots = RentApartmentShotsSerializer(many=True)
     brand = BrandSerializer(read_only=True)
     city = CitySerializer(read_only=True)
