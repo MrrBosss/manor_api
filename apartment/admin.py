@@ -3,8 +3,9 @@ from modeltranslation.admin import  TranslationAdmin
 from django.utils.safestring import mark_safe
 
 from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic,\
-                    Project, Features, ApartmentCharacteristic
+                    Project, Features
 from .forms import ApartmentForm
+from rent_apartment.models import ApartmentCharacteristic
 # Register your models here.
 
 class ProjectInline(admin.TabularInline):

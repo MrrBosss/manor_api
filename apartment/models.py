@@ -141,16 +141,6 @@ class ApartmentShots(models.Model):
         verbose_name_plural = "Turar joy rasmlari"
 
 
-class ApartmentCharacteristic(models.Model):
-    apartment = models.ForeignKey("Apartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
-    characteristic = models.ForeignKey("Characteristic", on_delete=models.CASCADE,related_name="+",null=True,blank=True)
-    value = models.CharField("qiymat",max_length=255, null=True,blank=True)
-
-    class Meta:
-        verbose_name = "Xarakteristika"
-        verbose_name_plural = "Xarakteristikalar"
-
-
 class Order(models.Model):
     order_date = models.DateTimeField(auto_now_add=True, null=True)
     name = models.CharField("Ism",max_length=100, null=True)
