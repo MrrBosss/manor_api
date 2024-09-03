@@ -6,18 +6,17 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import RentApartment, RentApartmentShots, RentApartmentOrder, Location, Convenience, Condition, Characteristic
 from .serializers import RentApartmentSerializer, RentApartmentShotsSerializer, RentApartmentOrderSerializer,\
                         LocationSerializer,ConvenienceSerializer, ConditionSerializer, RentApartmentDetailSerializer,\
-                        RentApartmenCharacteristicSerializer
+                        RentApartmenCharacteristicSerializer, CharacteristicSerializer
 from .filters import RentApartmentFilter
 # Create your views here.
 
 
 class CharacteristicViewSet(viewsets.ModelViewSet):
     queryset = Characteristic.objects.all()
-    serializer_class = RentApartmenCharacteristicSerializer
+    serializer_class = CharacteristicSerializer
     pagination_class = None
     http_method_names = ['get']
     
-
 
 class RentApartmentListView(generics.ListAPIView):
     queryset = RentApartment.objects.all()
@@ -25,6 +24,7 @@ class RentApartmentListView(generics.ListAPIView):
     search_fields = ['name']
     filter_backends = [DjangoFilterBackend]
     filterset_class = RentApartmentFilter
+
 
 class RentApartmentDetailView(generics.RetrieveAPIView):
     queryset = RentApartment.objects.all()

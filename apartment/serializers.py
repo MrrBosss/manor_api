@@ -59,7 +59,7 @@ class ApartmentDeatilSerializer(serializers.ModelSerializer):
     city = CitySerializer(read_only=True)
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
-    characteristic = CharacteristicSerializer(read_only=True)
+    characteristics = CharacteristicSerializer(read_only=True,many=True)
 
     class Meta:
         model = Apartment
@@ -73,7 +73,7 @@ class ApartmentSerializer(serializers.ModelSerializer):
     city = CitySerializer(read_only=True)
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
-    characteristic = CharacteristicSerializer(read_only=True)
+    characteristics = CharacteristicSerializer(read_only=True,many=True)
 
     class Meta:
         model = Apartment

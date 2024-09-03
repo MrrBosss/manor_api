@@ -6,6 +6,7 @@ import mapwidgets
 
 from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location, Convenience,\
                     Condition, Characteristic, ApartmentCharacteristic
+from rent_apartment.models import Characteristic
 # Register your models here.
 
 @admin.register(Location)

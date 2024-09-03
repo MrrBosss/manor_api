@@ -90,8 +90,8 @@ class RentApartmentShots(models.Model):
 
 
 class ApartmentCharacteristic(models.Model):
-    rent_apartment = models.ForeignKey("RentApartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
     apartment = models.ForeignKey("apartment.Apartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
+    rent_apartment = models.ForeignKey("RentApartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
     characteristic = models.ForeignKey("Characteristic", on_delete=models.CASCADE,related_name="+",null=True,blank=True)
     value = models.CharField(verbose_name="qiymat",max_length=255, null=True,blank=True)
 

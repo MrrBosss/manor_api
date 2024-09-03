@@ -2,9 +2,15 @@ from  rest_framework import serializers
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location, Convenience,\
-                    Condition, Characteristic
+                    Condition, Characteristic, ApartmentCharacteristic
 from apartment.serializers import CategorySerializer, BrandSerializer, CitySerializer,\
                                     DistrictSerializer
+
+
+class CharacteristicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Characteristic
+        fields = '__all__'
 
 
 class RentApartmentShotsSerializer(serializers.ModelSerializer):
@@ -46,7 +52,7 @@ class LocationSerializer(serializers.ModelSerializer):
 
 class RentApartmenCharacteristicSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Characteristic
+        model = ApartmentCharacteristic
         fields = '__all__'
 
 
@@ -56,7 +62,7 @@ class RentApartmentDetailSerializer(serializers.ModelSerializer):
     city = CitySerializer(read_only=True)
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
-    characteristic = RentApartmenCharacteristicSerializer(read_only=True)
+    characteristics = RentApartmenCharacteristicSerializer(read_only=True,many=True)
     convenience = ConvenienceSerializer(read_only=True)
     condition = ConditionSerializer(read_only=True)
     
@@ -71,22 +77,7 @@ class RentApartmentSerializer(serializers.ModelSerializer):
     city = CitySerializer(read_only=True)
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
-    characteristic = RentApartmenCharacteristicSerializer(read_only=True)
-    convenience = ConvenienceSerializer(read_only=True)
-    condition = ConditionSerializer(read_only=True)
-    
-    class Meta:
-        model = RentApartment
-        fields = '__all__'
-
-
-class RentApartmentSerializer(serializers.ModelSerializer):
-    rent_shots = RentApartmentShotsSerializer(many=True)
-    brand = BrandSerializer(read_only=True)
-    city = CitySerializer(read_only=True)
-    district = DistrictSerializer(read_only=True)
-    category = CategorySerializer(read_only=True)
-    characteristic = RentApartmenCharacteristicSerializer(read_only=True)
+    characteristics = RentApartmenCharacteristicSerializer(read_only=True,many=True)
     convenience = ConvenienceSerializer(read_only=True)
     condition = ConditionSerializer(read_only=True)
     
