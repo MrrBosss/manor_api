@@ -6,15 +6,16 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import RentApartment, RentApartmentShots, RentApartmentOrder, Location, Convenience, Condition, Characteristic
 from .serializers import RentApartmentSerializer, RentApartmentShotsSerializer, RentApartmentOrderSerializer,\
                         LocationSerializer,ConvenienceSerializer, ConditionSerializer, RentApartmentDetailSerializer,\
-                        CharacteristicSerializer
+                        RentApartmenCharacteristicSerializer
 from .filters import RentApartmentFilter
 # Create your views here.
 
 
 class CharacteristicViewSet(viewsets.ModelViewSet):
-    queryset = Characteristic
-    serializer_class = CharacteristicSerializer
+    queryset = Characteristic.objects.all()
+    serializer_class = RentApartmenCharacteristicSerializer
     pagination_class = None
+    http_method_names = ['get']
     
 
 

@@ -34,14 +34,20 @@ class ConditionAdmin(TranslationAdmin):
 
 @admin.register(Characteristic)
 class CharacteristicAdmin(TranslationAdmin):
-    list_display = ('id','label')
-    list_display_links = ('id','label')
+    list_display = ('id','label_uz')
+    list_display_links = ('id','label_uz')
     search_fields = ('label',)
 
 
 class ApartmentCharacteristicInline(admin.TabularInline):
     model = ApartmentCharacteristic
     extra = 0
+    fieldsets = (
+        ("Xarakteristika", {
+            'fields': ('rent_apartment','characteristic','value')
+        }),
+    )
+
 
 class RentApartmentShotsInline(admin.TabularInline):
     model = RentApartmentShots
@@ -70,7 +76,7 @@ class RentApartmentAdmin(TranslationAdmin):
             'fields': ('tenant_name', 'tenant_image', 'apartment_sold')
         }),
         ("Narx va boshqalar", {
-            'fields': ('price_per_m','characteristic','convenience', 'condition')
+            'fields': ('price_per_m','convenience', 'condition')
         }),
         ("Manzil va boshqalar", {
             'fields': ('brand', 'city', 'district', 'category')

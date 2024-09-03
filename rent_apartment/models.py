@@ -40,8 +40,8 @@ class Condition(models.Model):
 
 
 class Characteristic(models.Model):
-    label = models.CharField(max_length=255, null=True,blank=True)
-    icon = models.ImageField(upload_to="characteristics", null=True,blank=True)
+    label = models.CharField(verbose_name="nomi",max_length=255, null=True,blank=True)
+    icon = models.ImageField(verbose_name="icon",upload_to="characteristics", null=True,blank=True)
 
     class Meta:
         verbose_name = "Xarakteristika"

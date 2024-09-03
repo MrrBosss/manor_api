@@ -58,6 +58,15 @@ class CategoryAdmin(TranslationAdmin):
     search_fields = ['name']
     
 
+class ApartmentCharacteristicInline(admin.TabularInline):
+    model = ApartmentCharacteristic
+    extra = 0
+    fieldsets = (
+        ("Xarakteristika", {
+            'fields': ('apartment','characteristic','value')
+        }),
+    )
+
 class ApartmentShotsInline(admin.TabularInline):
     model = ApartmentShots
     extra = 0
@@ -72,7 +81,7 @@ class ApartmentAdmin(TranslationAdmin):
     list_display = ['name_uz','brand','room','project','city','district','id']
     search_fields = ['company_name', 'name','room']
     list_display_links = ['name_uz','brand','room']
-    inlines = [ApartmentShotsInline,]
+    inlines = [ApartmentShotsInline,ApartmentCharacteristicInline]
     form = ApartmentForm
 
     # Define fieldsets to group and order fields in the form view

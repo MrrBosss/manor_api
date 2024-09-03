@@ -1,6 +1,5 @@
 from django.db import models
 import datetime
-
 # Create your models here.
 
 
@@ -90,7 +89,6 @@ class Apartment(models.Model):
     name = models.CharField("Nomi",max_length=50,null=True, blank=True)
     price = models.FloatField("Narx",default=10.000,null=True, blank=True)
     price_per_m = models.FloatField("Narx kv metr",default=1.000,null=True, blank=True)
-    # characteristic = models.ForeignKey(Characteristic,on_delete=models.CASCADE, null=True, blank=True)
     description = models.TextField("Ta'rif",null=True, blank=True)
     room = models.IntegerField("Xonalar soni",null=True,blank=True)
     mortgage_available = models.BooleanField("Ipoteka",default=False,null=True)
