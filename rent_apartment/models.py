@@ -43,6 +43,9 @@ class Characteristic(models.Model):
     label = models.CharField(verbose_name="nomi",max_length=255, null=True,blank=True)
     icon = models.ImageField(verbose_name="icon",upload_to="characteristics", null=True,blank=True)
 
+    def __str__(self):
+        return str(self.label)
+
     class Meta:
         verbose_name = "Xarakteristika"
         verbose_name_plural = "Xarakteristikalar"
