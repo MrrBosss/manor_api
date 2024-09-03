@@ -14,24 +14,6 @@ def upload_to(instance, filename):
     return f'{date_str}/{filename}'
 
 
-class Characteristic(models.Model):
-    total_area = models.FloatField("Umumiy maydon",default=0, null=True,blank=True)
-    residential_area = models.FloatField("Aholi yashash maydoni",default=0, null=True,blank=True)
-    floor = models.IntegerField("Qavat",default=0, null=True,blank=True)
-    year_of_delivery = models.IntegerField("Tayyor bo'lish sanasi",default=0, null=True,blank=True)
-    house = models.CharField("Uy holati",max_length=100, null=True,blank=True)
-    finishing = models.CharField("Jarayon",max_length=100, null=True,blank=True)
-    view_from_window = models.CharField("Derazadan ko'rinishi",max_length=100, null=True,blank=True)
-    bathroom = models.IntegerField("Yuvinish honasi",default=0, null=True,blank=True)
-    type = models.CharField("Turi",max_length=100, null=True,blank=True)
-
-    class Meta:
-        verbose_name = "Xarakteristika"
-        verbose_name_plural = "Xarakteristikalar"
-
-    def __str__(self):
-        return str(self.type)
-
 class Category(models.Model):
     name = models.CharField("Categoriya",max_length=50,null=True,blank=True)
 
@@ -139,16 +121,6 @@ class ApartmentShots(models.Model):
     class Meta:
         verbose_name = "Turar joy rasmi"
         verbose_name_plural = "Turar joy rasmlari"
-
-
-class ApartmentCharacteristic(models.Model):
-    apartment = models.ForeignKey("Apartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
-    characteristic = models.ForeignKey("Characteristic", on_delete=models.CASCADE,related_name="+",null=True,blank=True)
-    value = models.CharField("qiymat",max_length=255, null=True,blank=True)
-
-    class Meta:
-        verbose_name = "Xarakteristika"
-        verbose_name_plural = "Xarakteristikalar"
 
 
 class Order(models.Model):

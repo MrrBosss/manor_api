@@ -5,7 +5,7 @@ import mapwidgets
 
 
 from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location, Convenience,\
-                    Condition
+                    Condition, Characteristic, ApartmentCharacteristic
 # Register your models here.
 
 @admin.register(Location)
@@ -32,6 +32,17 @@ class ConditionAdmin(TranslationAdmin):
     search_fields = ('name',)
 
 
+@admin.register(Characteristic)
+class CharacteristicAdmin(TranslationAdmin):
+    list_display = ('id','label')
+    list_display_links = ('id','label')
+    search_fields = ('label',)
+
+
+class ApartmentCharacteristicInline(admin.TabularInline):
+    model = ApartmentCharacteristic
+    extra = 0
+
 class RentApartmentShotsInline(admin.TabularInline):
     model = RentApartmentShots
     extra = 0
@@ -41,7 +52,7 @@ class RentApartmentAdmin(TranslationAdmin):
     list_display = ['name_uz','tenant_name','brand','id']
     search_fields = ['name']
     list_display_links = ['name_uz','tenant_name']
-    inlines = [RentApartmentShotsInline]
+    inlines = [RentApartmentShotsInline,ApartmentCharacteristicInline]
     fieldsets = (
         ('Uzbek (Default)', {
             'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed

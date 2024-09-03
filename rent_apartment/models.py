@@ -2,7 +2,7 @@ from django.db import models
 import datetime
 from django.contrib.gis.db.models import PointField
 
-from apartment.models import Brand, City, District, Category, Apartment, Characteristic
+from apartment.models import Brand, City, District, Category, Apartment
 # Create your models here.
 
 
@@ -39,6 +39,11 @@ class Condition(models.Model):
         verbose_name_plural = "Sharoitlar"
 
 
+class Characteristic(models.Model):
+    label = models.CharField(max_length=255, null=True,blank=True)
+    icon = models.ImageField(upload_to="characteristics", null=True,blank=True)
+
+
 class RentApartment(models.Model):
     name = models.CharField("Nomi",max_length=50, null=True, blank=True)
     price_per_m = models.FloatField("Ijara narxi",default=1.000, null=True, blank=True)
@@ -53,8 +58,7 @@ class RentApartment(models.Model):
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
     convenience = models.ForeignKey(Convenience,on_delete=models.CASCADE,null=True,blank=True)
-    condition = models.ForeignKey(Condition,on_delete=models.CASCADE,null=True,blank=True)
-    characteristic = models.ForeignKey(Characteristic, on_delete=models.CASCADE, null=True,blank=True)
+    condition = models.ManyToManyField(Condition)
 
     def __str__(self):
         return str(self.name)
@@ -75,6 +79,17 @@ class RentApartmentShots(models.Model):
     class Meta:
         verbose_name = 'Ijara turar joy rasmi'
         verbose_name_plural = 'Ijara turar joy rasmlari'
+
+
+class ApartmentCharacteristic(models.Model):
+    rent_apartment = models.ForeignKey("RentApartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
+    apartment = models.ForeignKey("apartment.Apartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
+    characteristic = models.ForeignKey("Characteristic", on_delete=models.CASCADE,related_name="+",null=True,blank=True)
+    value = models.CharField(verbose_name="qiymat",max_length=255, null=True,blank=True)
+
+    class Meta:
+        verbose_name = "Xarakteristika"
+        verbose_name_plural = "Xarakteristikalar"
 
 
 class Location(models.Model):

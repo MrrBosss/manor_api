@@ -1,8 +1,8 @@
 from modeltranslation.translator import TranslationOptions
 from modeltranslation.decorators import register
 
-from .models import Apartment, Category, Characteristic, Features
-from rent_apartment.models import RentApartment, Convenience, Condition
+from .models import Apartment, Category, Features
+from rent_apartment.models import RentApartment, Convenience, Characteristic, Condition
 from news_and_banners.models import News, Banner
 
 # Apartments
@@ -16,7 +16,7 @@ class FeaturesTranslationOptions(TranslationOptions):
 
 @register(Characteristic)
 class CharacteristicTranslationOptions(TranslationOptions):
-    fields = ('house','finishing','view_from_window','type')
+    fields = ('label',)
 
 @register(Category)
 class CategoryTranslationOptions(TranslationOptions):

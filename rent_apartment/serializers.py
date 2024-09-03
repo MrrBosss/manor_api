@@ -2,15 +2,9 @@ from  rest_framework import serializers
 from rest_framework_gis.serializers import GeoFeatureModelSerializer
 
 from .models import RentApartment, RentApartmentShots, RentApartmentOrder, RentApartmentOrderItem, Location, Convenience,\
-                    Condition
-from apartment.serializers import CategorySerializer, BrandSerializer, CitySerializer, CharacteristicListSerializer,\
+                    Condition, Characteristic
+from apartment.serializers import CategorySerializer, BrandSerializer, CitySerializer,\
                                     DistrictSerializer
-
-
-class RentApartmentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = RentApartment
-        fields = '__all__'
 
 
 class RentApartmentShotsSerializer(serializers.ModelSerializer):
@@ -50,13 +44,34 @@ class LocationSerializer(serializers.ModelSerializer):
         return None
 
 
+class CharacteristicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Characteristic
+        fields = '__all__'
+
+
 class RentApartmentDetailSerializer(serializers.ModelSerializer):
     rent_shots = RentApartmentShotsSerializer(many=True)
     brand = BrandSerializer(read_only=True)
     city = CitySerializer(read_only=True)
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
-    characteristic = CharacteristicListSerializer(read_only=True)
+    characteristic = CharacteristicSerializer(read_only=True)
+    convenience = ConvenienceSerializer(read_only=True)
+    condition = ConditionSerializer(read_only=True)
+    
+    class Meta:
+        model = RentApartment
+        fields = '__all__'
+
+
+class RentApartmentSerializer(serializers.ModelSerializer):
+    rent_shots = RentApartmentShotsSerializer(many=True)
+    brand = BrandSerializer(read_only=True)
+    city = CitySerializer(read_only=True)
+    district = DistrictSerializer(read_only=True)
+    category = CategorySerializer(read_only=True)
+    characteristic = CharacteristicSerializer(read_only=True)
     convenience = ConvenienceSerializer(read_only=True)
     condition = ConditionSerializer(read_only=True)
     
