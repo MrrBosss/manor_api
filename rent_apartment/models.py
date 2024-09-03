@@ -56,6 +56,7 @@ class RentApartment(models.Model):
     apartment_sold = models.IntegerField("Turar joy",default=0,null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
     description = models.TextField("Ta'rif",null=True, blank=True)
+    room = models.IntegerField("Xonalar soni",null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
