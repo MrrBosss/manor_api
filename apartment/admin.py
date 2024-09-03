@@ -2,9 +2,14 @@ from django.contrib import admin
 from modeltranslation.admin import  TranslationAdmin
 from django.utils.safestring import mark_safe
 
+<<<<<<< HEAD
 from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category,\
+=======
+from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category, Characteristic,\
+>>>>>>> e379f37d75ac012dc76b8651516c911ef0f40a00
                     Project, Features
 from .forms import ApartmentForm
+from rent_apartment.models import ApartmentCharacteristic
 # Register your models here.
 
 class ProjectInline(admin.TabularInline):
@@ -56,6 +61,7 @@ class CategoryAdmin(TranslationAdmin):
     search_fields = ['name']
     
 
+<<<<<<< HEAD
 # @admin.register(Characteristic)
 # class CharacteristicAdmin(TranslationAdmin):
 #     list_display = ['type_uz', 'bathroom', 'view_from_window_uz', 'total_area','id',]
@@ -77,6 +83,29 @@ class CategoryAdmin(TranslationAdmin):
 #             'fields': ( 'total_area', 'residential_area', 'floor','year_of_delivery','bathroom')
 #         }),
 #     )
+=======
+@admin.register(Characteristic)
+class CharacteristicAdmin(TranslationAdmin):
+    list_display = ['type_uz', 'bathroom', 'view_from_window_uz', 'total_area','id',]
+    list_display_links = ['type_uz','id',]
+    fieldsets = (
+        ('Uzbek (Default)', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('house_uz','finishing_uz','view_from_window_uz','type_uz')
+        }),
+        ('English', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('house_en','finishing_en','view_from_window_en','type_en')
+        }),
+        ('Russian', {
+            'classes': ('collapse',),  # You can remove 'collapse' if you don't want it collapsed
+            'fields': ('house_ru','finishing_ru','view_from_window_ru','type_ru')
+        }),
+        ('Boshqalar', {
+            'fields': ( 'total_area', 'residential_area', 'floor','year_of_delivery','bathroom')
+        }),
+    )
+>>>>>>> e379f37d75ac012dc76b8651516c911ef0f40a00
 
 
 class ApartmentShotsInline(admin.TabularInline):

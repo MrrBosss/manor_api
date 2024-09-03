@@ -57,8 +57,14 @@ class RentApartment(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
+<<<<<<< HEAD
     convenience = models.ForeignKey(Convenience,on_delete=models.CASCADE,null=True,blank=True)
     condition = models.ManyToManyField(Condition)
+=======
+    convenience = models.ManyToManyField(Convenience,blank=True)
+    condition = models.ManyToManyField(Condition,blank=True)
+    characteristic = models.ForeignKey(Characteristic, on_delete=models.CASCADE, null=True,blank=True)
+>>>>>>> e379f37d75ac012dc76b8651516c911ef0f40a00
 
     def __str__(self):
         return str(self.name)
@@ -82,6 +88,7 @@ class RentApartmentShots(models.Model):
 
 
 class ApartmentCharacteristic(models.Model):
+<<<<<<< HEAD
     rent_apartment = models.ForeignKey("RentApartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
     apartment = models.ForeignKey("apartment.Apartment", on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
     characteristic = models.ForeignKey("Characteristic", on_delete=models.CASCADE,related_name="+",null=True,blank=True)
@@ -90,6 +97,16 @@ class ApartmentCharacteristic(models.Model):
     class Meta:
         verbose_name = "Xarakteristika"
         verbose_name_plural = "Xarakteristikalar"
+=======
+    rent_apartment = models.ForeignKey(RentApartment,on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
+    apartment = models.ForeignKey(Apartment, on_delete=models.CASCADE, related_name="characteristics",null=True,blank=True)
+    characteristic = models.ForeignKey(Characteristic, on_delete=models.CASCADE,related_name="+",null=True,blank=True)
+    value = models.CharField("qiymat",max_length=255, null=True,blank=True)
+
+    class Meta:
+        verbose_name = "Xarakteristika"
+        verbose_name_plural = "Xarakteristikalar"	
+>>>>>>> e379f37d75ac012dc76b8651516c911ef0f40a00
 
 
 class Location(models.Model):
