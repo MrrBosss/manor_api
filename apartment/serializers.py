@@ -2,12 +2,14 @@ from rest_framework import serializers
 
 from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category,\
                     Project, Features
+from rent_apartment.models import Characteristic
+
+class CharacteristicSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Characteristic
+        fields = '__all__'
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> e379f37d75ac012dc76b8651516c911ef0f40a00
 class ApartmentShotsSerializer(serializers.ModelSerializer):
     class Meta:
         model = ApartmentShots
@@ -57,7 +59,7 @@ class ApartmentDeatilSerializer(serializers.ModelSerializer):
     city = CitySerializer(read_only=True)
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
-    # characteristic = CharacteristicListSerializer(read_only=True)
+    characteristic = CharacteristicSerializer(read_only=True)
 
     class Meta:
         model = Apartment
@@ -71,21 +73,7 @@ class ApartmentSerializer(serializers.ModelSerializer):
     city = CitySerializer(read_only=True)
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
-    # characteristic = CharacteristicListSerializer(read_only=True)
-
-    class Meta:
-        model = Apartment
-        fields = '__all__'
-
-
-class ApartmentSerializer(serializers.ModelSerializer):
-    feature = FeaturesSerializer(read_only=True)
-    apartment_shots = ApartmentShotsSerializer(many=True)
-    brand = BrandSerializer(read_only=True)
-    city = CitySerializer(read_only=True)
-    district = DistrictSerializer(read_only=True)
-    category = CategorySerializer(read_only=True)
-    characteristic = CharacteristicListSerializer(read_only=True)
+    characteristic = CharacteristicSerializer(read_only=True)
 
     class Meta:
         model = Apartment
