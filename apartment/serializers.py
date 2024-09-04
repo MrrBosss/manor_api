@@ -2,11 +2,32 @@ from rest_framework import serializers
 
 from .models import Apartment, ApartmentShots, Order, OrderItem, Brand, City, District, Category,\
                     Project, Features
-from rent_apartment.models import Characteristic
+from rent_apartment.models import ApartmentCharacteristic, Location
+
+
+class LocationSerializer(serializers.ModelSerializer):
+    # latitude = serializers.SerializerMethodField()
+    # longitude = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Location
+        fields = ['id', 'name', 'location']
+        geo_field = 'location'  # Specify the geographical field
+
+    def get_latitude(self, obj) -> float:
+        if hasattr(obj, 'location') and obj.location:
+            return obj.location.y
+        
+    def get_longitude(self, obj) -> float:
+        if hasattr(obj, 'location') and obj.location:
+            return obj.location.x
+        return None
+
+
 
 class CharacteristicSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Characteristic
+        model = ApartmentCharacteristic
         fields = '__all__'
 
 
@@ -60,6 +81,7 @@ class ApartmentDeatilSerializer(serializers.ModelSerializer):
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
     characteristics = CharacteristicSerializer(read_only=True,many=True)
+    locations = LocationSerializer(read_only=True,many=True)
 
     class Meta:
         model = Apartment
@@ -74,6 +96,7 @@ class ApartmentSerializer(serializers.ModelSerializer):
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
     characteristics = CharacteristicSerializer(read_only=True,many=True)
+    locations = LocationSerializer(read_only=True,many=True)
 
     class Meta:
         model = Apartment

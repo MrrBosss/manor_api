@@ -63,10 +63,11 @@ class RentApartmentDetailSerializer(serializers.ModelSerializer):
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
     characteristics = RentApartmenCharacteristicSerializer(read_only=True,many=True)
+    locations = LocationSerializer(read_only=True,many=True)
     convenience = ConvenienceSerializer(read_only=True)
     condition = ConditionSerializer(read_only=True)
     
-    class Meta:
+    class Meta: 
         model = RentApartment
         fields = '__all__'
 
@@ -80,6 +81,7 @@ class RentApartmentSerializer(serializers.ModelSerializer):
     characteristics = RentApartmenCharacteristicSerializer(read_only=True,many=True)
     convenience = ConvenienceSerializer(read_only=True)
     condition = ConditionSerializer(read_only=True)
+    locations = LocationSerializer(read_only=True,many=True)
     
     class Meta:
         model = RentApartment

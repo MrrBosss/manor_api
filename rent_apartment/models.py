@@ -101,8 +101,8 @@ class ApartmentCharacteristic(models.Model):
 
 
 class Location(models.Model):
-    apartment = models.ForeignKey(Apartment, on_delete=models.Case, null=True, blank=True)
-    rent_apartment = models.ForeignKey(RentApartment, on_delete=models.CASCADE, null=True, blank=True)
+    apartment = models.ForeignKey("apartment.Apartment", on_delete=models.Case,related_name="locations", null=True, blank=True)
+    rent_apartment = models.ForeignKey("RentApartment", on_delete=models.CASCADE,related_name="locations",null=True, blank=True)
     name = models.CharField("Manzil nomi",max_length=100, null=True, blank=True)
     location = PointField("Manzil", geography=True, null=True,blank=True)
 
