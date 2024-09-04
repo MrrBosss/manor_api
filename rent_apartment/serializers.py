@@ -7,7 +7,7 @@ from apartment.serializers import CategorySerializer, BrandSerializer, CitySeria
                                     DistrictSerializer
 
 
-class CharacteristicSerializer(serializers.ModelSerializer):
+class RentCharacteristicSerializer(serializers.ModelSerializer):
     class Meta:
         model = Characteristic
         fields = '__all__'
@@ -31,7 +31,7 @@ class ConditionSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class LocationSerializer(serializers.ModelSerializer):
+class RentLocationSerializer(serializers.ModelSerializer):
     # latitude = serializers.SerializerMethodField()
     # longitude = serializers.SerializerMethodField()
 
@@ -63,7 +63,7 @@ class RentApartmentDetailSerializer(serializers.ModelSerializer):
     district = DistrictSerializer(read_only=True)
     category = CategorySerializer(read_only=True)
     characteristics = RentApartmenCharacteristicSerializer(read_only=True,many=True)
-    locations = LocationSerializer(read_only=True,many=True)
+    locations = RentLocationSerializer(read_only=True,many=True)
     convenience = ConvenienceSerializer(read_only=True)
     condition = ConditionSerializer(read_only=True)
     
@@ -81,7 +81,7 @@ class RentApartmentSerializer(serializers.ModelSerializer):
     characteristics = RentApartmenCharacteristicSerializer(read_only=True,many=True)
     convenience = ConvenienceSerializer(read_only=True)
     condition = ConditionSerializer(read_only=True)
-    locations = LocationSerializer(read_only=True,many=True)
+    locations = RentLocationSerializer(read_only=True,many=True)
     
     class Meta:
         model = RentApartment

@@ -1,9 +1,16 @@
 from django.shortcuts import render
-from rest_framework import viewsets
+from rest_framework import viewsets, generics
 
-from .models import Banner, News
-from .serializers import NewsSerializer, BannerSerizlizer
+from .models import Banner, News, Advertisement
+from .serializers import NewsSerializer, BannerSerizlizer,AdvertisementSerializer
 # Create your views here.
+
+
+class AdvertisementView(generics.CreateAPIView):
+    queryset = Advertisement.objects.all()
+    serializer_class = AdvertisementSerializer
+    http_method_names = ['post']
+    pagination_class = None
 
 
 class BannerViewSet(viewsets.ModelViewSet):

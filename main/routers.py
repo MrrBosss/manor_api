@@ -5,7 +5,7 @@ from apartment.views import ApartmentListView, ApartmentDetailView, ApartmentSho
                             CityViewSet, DistrictViewSet, CategoryViewSet, ProjectViewSet, FeatureViewSet
 from rent_apartment.views import RentApartmentListView, RentApartmentDetailView, RentApartmentShotsViewSet, RentOrderView,\
                                 LocationViewSet,ConvenienceViewSet, ConditionViewSet, CharacteristicViewSet
-from news_and_banners.views import BannerViewSet, NewsViewSet
+from news_and_banners.views import BannerViewSet, NewsViewSet, AdvertisementView
 router = DefaultRouter()
 router.register('features', FeatureViewSet,basename='features')
 router.register('projects', ProjectViewSet, basename='projects')
@@ -31,5 +31,7 @@ urlpatterns += [
     #rent_apartment
     path('rent-apartment-list/', RentApartmentListView.as_view(), name='rent-apartment-list'),
     path('rent-apartment-detail/<int:pk>/', RentApartmentDetailView.as_view(), name='rent-apartment-detail'),
-    path('rent-apartment-order/', RentOrderView.as_view(), name='rent-apartment-order')
+    path('rent-apartment-order/', RentOrderView.as_view(), name='rent-apartment-order'),
+    #new_and_banners
+    path('advertisements/', AdvertisementView.as_view(),name='advertisements')
 ]

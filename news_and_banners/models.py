@@ -20,3 +20,15 @@ class Banner(models.Model):
     class Meta:
         verbose_name = "Banner"
         verbose_name_plural = "Bannerlar"
+
+
+class Advertisement(models.Model):
+    order_date = models.DateTimeField(auto_now_add=True, null=True)
+    name = models.CharField("Ism",max_length=100, null=True)
+    phone_number = models.CharField("Telefon raqam",max_length=20, null=True)
+    comment = models.TextField("Izoh",null=True,blank=True)
+    # Add other fields like customer information, shipping details, etc.
+
+    class Meta:
+        verbose_name = "Reklama"
+        verbose_name_plural = "Reklamalar"
