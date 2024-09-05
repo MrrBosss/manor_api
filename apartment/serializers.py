@@ -70,11 +70,11 @@ class CategorySerializer(serializers.ModelSerializer):
 class FeaturesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Features
-        fields = ['text','image']
+        fields = ['id','text','image']
 
 
 class ApartmentDeatilSerializer(serializers.ModelSerializer):
-    feature = FeaturesSerializer(read_only=True)
+    features = FeaturesSerializer(read_only=True,many=True)
     apartment_shots = ApartmentShotsSerializer(many=True)
     brand = BrandSerializer(read_only=True)
     city = CitySerializer(read_only=True)
@@ -89,7 +89,7 @@ class ApartmentDeatilSerializer(serializers.ModelSerializer):
 
 
 class ApartmentSerializer(serializers.ModelSerializer):
-    feature = FeaturesSerializer(read_only=True)
+    features = FeaturesSerializer(read_only=True,many=True)
     apartment_shots = ApartmentShotsSerializer(many=True)
     brand = BrandSerializer(read_only=True)
     city = CitySerializer(read_only=True)

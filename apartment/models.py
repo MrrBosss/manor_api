@@ -77,12 +77,12 @@ class Features(models.Model):
     text = models.CharField("Matn",max_length=500,null=True,blank=True)
     image = models.ImageField("Rasm",upload_to='Features',null=True,blank=True)
 
+    def __str__(self):
+        return str(self.text)
+    
     class Meta:
         verbose_name = "Xususiyat"
         verbose_name_plural = "Xususiyatlar"
-
-    def __str__(self):
-        return str(self.text)
 
 
 class Apartment(models.Model):
@@ -93,7 +93,7 @@ class Apartment(models.Model):
     room = models.IntegerField("Xonalar soni",null=True,blank=True)
     mortgage_available = models.BooleanField("Ipoteka",default=False,null=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
-    feature = models.ManyToManyField(Features,blank=True)
+    features = models.ManyToManyField(Features,blank=True,related_name="features")
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
     project = models.ForeignKey(Project, on_delete=models.CASCADE,null=True,blank=True)
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
