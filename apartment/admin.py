@@ -26,7 +26,7 @@ class BrandAdmin(admin.ModelAdmin):
     inlines = [ProjectInline]
     fieldsets = (
         ('Brand', {
-            'fields': ('name', 'apartment_sold','year_join','brand_image')
+            'fields': ('name', 'apartment_sold','year_join','brand_image','phone')
         }),
     )
 
@@ -102,7 +102,7 @@ class ApartmentAdmin(TranslationAdmin):
             'fields': ('room','brand','project','category','city', 'district', 'mortgage_available')
         }),
         ('Narx va Boshqalar', {
-            'fields': ('price', 'price_per_m','feature')
+            'fields': ('price', 'price_per_m','features')
         }),
     )
 

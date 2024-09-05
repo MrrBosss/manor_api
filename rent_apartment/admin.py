@@ -74,10 +74,10 @@ class RentApartmentAdmin(TranslationAdmin):
             'fields': ('name_ru', 'description_ru',)
         }),
         ("Ijara beruvchi ma'lumotlari", {
-            'fields': ('tenant_name', 'tenant_image', 'apartment_sold')
+            'fields': ('tenant_name', 'tenant_image', 'apartment_sold','phone')
         }),
         ("Narx va boshqalar", {
-            'fields': ('price_per_m','convenience', 'condition')
+            'fields': ('price_per_m','conveniences', 'conditions')
         }),
         ("Manzil va boshqalar", {
             'fields': ('brand', 'city', 'district', 'category')

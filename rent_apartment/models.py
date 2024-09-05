@@ -58,6 +58,7 @@ class RentApartment(models.Model):
     tenant_image = models.ImageField("Surati",upload_to=upload_to, null=True, blank=True)
     apartment_sold = models.IntegerField("Turar joy",default=0,null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True)
+    phone = models.CharField("Qo'ng'iroq uchun",max_length=50,null=True,blank=True)
     description = models.TextField("Ta'rif",null=True, blank=True)
     room = models.IntegerField("Xonalar soni",null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True, null=True, blank=True)
@@ -65,8 +66,8 @@ class RentApartment(models.Model):
     city = models.ForeignKey(City, on_delete=models.CASCADE, null=True, blank=True)
     district = models.ForeignKey(District, on_delete=models.CASCADE, null=True, blank=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE, null=True, blank=True)
-    convenience = models.ManyToManyField(Convenience,blank=True)
-    condition = models.ManyToManyField(Condition,blank=True)
+    conveniences = models.ManyToManyField(Convenience,blank=True,related_name="conveniences")
+    conditions = models.ManyToManyField(Condition,blank=True,related_name="conditions")
 
     def __str__(self):
         return str(self.name)
