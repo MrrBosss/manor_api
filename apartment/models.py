@@ -92,7 +92,7 @@ class Apartment(models.Model):
     price_per_m = models.FloatField("Narx kv metr",default=1.000,null=True, blank=True)
     description = models.TextField("Ta'rif",null=True, blank=True)
     room = models.IntegerField("Xonalar soni",null=True,blank=True)
-    mortgage_available = models.BooleanField("Ipoteka",default=False,null=True)
+    mortgage_available = models.BooleanField("Ipoteka",default=False)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     features = models.ManyToManyField(Features,blank=True,related_name="features")
     brand = models.ForeignKey(Brand, on_delete=models.CASCADE, null=True, blank=True)
