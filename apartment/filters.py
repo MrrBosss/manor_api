@@ -14,4 +14,4 @@ class ApartmentFilter(django_filters.FilterSet):
 
     class Meta:
         model = Apartment
-        fields = ['city_id','district','brand','room','price_lte','price_gte','mortgage_available','category']
+        fields = ['city_id','district_id','brand_id','rooms','price_to','price_from','mortgage_available','category_id']
