@@ -1,7 +1,7 @@
 from .settings import *
 from .settings import env
 
-DEBUG=True
+DEBUG=False
 
 MEDIA_ROOT = "/var/www/manor.itlink.uz/media"
 STATIC_ROOT = "/var/www/manor.itlink.uz/static"
@@ -24,3 +24,6 @@ SECRET_KEY = env("DJANGO_SECRET_KEY")
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
 ALLOWED_HOSTS = env.list("DJANGO_ALLOWED_HOSTS", default=["manor.itlink.uz"])
 MEDIA_URL="/media/"
+REST_FRAMEWORK["DEFAULT_RENDERER_CLASSES"] = [
+    "rest_framework.renderers.JSONRenderer"
+]
